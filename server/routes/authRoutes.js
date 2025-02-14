@@ -15,8 +15,6 @@ router.get("/api/auth/google", (req, res) => {
 
 router.get("/api/auth/google/callback", async (req, res) => {
   const { code } = req.query;
-  console.log("Received Code:", code); // Debugging
-
   try {
     const { data } = await axios.post("https://oauth2.googleapis.com/token", {
       client_id: CLIENT_ID,
@@ -26,8 +24,6 @@ router.get("/api/auth/google/callback", async (req, res) => {
       grant_type: "authorization_code",
     });
 
-    console.log("Token Exchange Data:", data); // Log token exchange data
-
     const { access_token } = data;
 
     const { data: profile } = await axios.get(
@@ -36,8 +32,6 @@ router.get("/api/auth/google/callback", async (req, res) => {
         headers: { Authorization: `Bearer ${access_token}` },
       }
     );
-
-    console.log("User Profile:", profile); // Log profile data
 
     // Create a JWT token
     const token = jwt.sign(profile, "your_jwt_secret", { expiresIn: "1h" });

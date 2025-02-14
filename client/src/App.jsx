@@ -4,12 +4,10 @@ function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Check if user info is already in local storage
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     } else {
-      // Fetch user profile from the server
       fetch("/api/auth/profile", { credentials: "include" })
         .then((response) => response.json())
         .then((data) => {

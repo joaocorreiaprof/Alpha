@@ -11,9 +11,10 @@ const authRoutes = require("../routes/authRoutes");
 
 //Middlewares
 app.use(
+  //When deploy check this becasue its works only with app.use(cors())
   cors({
-    origin: "http://localhost:5173", // Update this to match your client URL
-    credentials: true, // Allow credentials (cookies)
+    origin: "http://localhost:5173",
+    credentials: true,
   })
 );
 app.use(express.json());
