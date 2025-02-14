@@ -1,0 +1,14 @@
+{
+  "name": "alpha",
+  "version": "1.0.0",
+  "description": "Social media site",
+  "scripts": {
+    "start": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\""
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
