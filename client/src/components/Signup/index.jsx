@@ -10,11 +10,11 @@ const Signup = () => {
         <h2>SignUp</h2>
 
         <div className="form-group">
-          <label htmlFor="name">Name</label>
+          <label htmlFor="name">Username</label>
           <input
             type="text"
-            id="name"
-            name="name"
+            id="username"
+            name="username"
             value={formData.name}
             onChange={handleChange}
             placeholder="Enter your name"

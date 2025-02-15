@@ -2,13 +2,13 @@ import { useState } from "react";
 
 const useForm = () => {
   const [formData, setFormData] = useState({
-    name: "",
+    username: "", // Changed from name to username
     email: "",
     password: "",
   });
 
   const [errors, setErrors] = useState({
-    name: "",
+    username: "", // Changed from name to username
     email: "",
     password: "",
   });
@@ -22,10 +22,10 @@ const useForm = () => {
   };
 
   const validate = () => {
-    let formErrors = { name: "", email: "", password: "" };
+    let formErrors = { username: "", email: "", password: "" }; // Changed from name to username
 
-    if (!formData.name) {
-      formErrors.name = "Name is required";
+    if (!formData.username) {
+      formErrors.username = "Username is required"; // Changed from name to username
     }
 
     if (!formData.email) {
@@ -44,12 +44,7 @@ const useForm = () => {
     return formErrors;
   };
 
-  return {
-    formData,
-    errors,
-    handleChange,
-    validate,
-  };
+  return { formData, errors, handleChange, validate };
 };
 
 export default useForm;

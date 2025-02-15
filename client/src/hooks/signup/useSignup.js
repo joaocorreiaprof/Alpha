@@ -1,10 +1,12 @@
 import { useAuth } from "../../context/useAuth";
 import useForm from "./useForm";
 import authService from "../../services/authService";
+import { useNavigate } from "react-router-dom";
 
 const useSignup = () => {
   const { login } = useAuth();
   const { formData, errors, handleChange, validate } = useForm();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,8 +16,8 @@ const useSignup = () => {
       try {
         const response = await authService.signUp(formData);
         console.log("User created successfully:", response);
-        // Optionally, you can log in the user after successful sign-up
-        // login(response.token);
+        login(response.user);
+        navigate("/");
       } catch (error) {
         console.error("Sign Up Error:", error);
       }

@@ -1,12 +1,10 @@
-console.log("authService.js loaded"); // Debug log
-
 const getProfile = async () => {
   try {
     const response = await fetch("/api/auth/profile", {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("auth_token")}`, // Include the authentication token
+        Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
       },
     });
     if (!response.ok) throw new Error("Failed to fetch profile");
@@ -67,8 +65,8 @@ const login = async (userData) => {
     }
 
     const data = await response.json();
-    localStorage.setItem("auth_token", data.token); // Store the authentication token
-    localStorage.setItem("user", JSON.stringify(data.user)); // Store the user object
+    localStorage.setItem("auth_token", data.token);
+    localStorage.setItem("user", JSON.stringify(data.user));
     return data;
   } catch (error) {
     console.error("Login Error:", error);

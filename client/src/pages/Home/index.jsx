@@ -1,9 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/useAuth";
+import { useEffect } from "react";
 
 function Home() {
   const { user, loginWithGoogle, logout } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      console.log("User state updated:", user);
+    }
+  }, [user]);
 
   const goToSignup = () => {
     navigate("/signup");
@@ -18,8 +25,7 @@ function Home() {
       <h1>React + Google Auth</h1>
       {user ? (
         <div>
-          <h2>Welcome, {user.username}</h2>{" "}
-          {/* Display the username property */}
+          <h2>Welcome, {user.username}</h2>
           <p>Email: {user.email}</p>
           <button onClick={logout}>Logout</button>
         </div>
