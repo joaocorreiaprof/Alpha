@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
         setUser(parsedUser);
       } catch (error) {
         console.error("Failed to parse user from localStorage:", error);
-        localStorage.removeItem("user"); // Remove invalid JSON from localStorage
+        localStorage.removeItem("user");
       }
     } else {
       authService
@@ -36,9 +36,13 @@ export const AuthProvider = ({ children }) => {
   const loginWithGoogle = () => authService.loginWithGoogle();
 
   const login = (userData) => {
-    console.log("Logging in user:", userData);
-    setUser(userData);
-    localStorage.setItem("user", JSON.stringify(userData));
+    if (userData) {
+      setUser(userData);
+      console.log("Logging in user:", userData);
+      localStorage.setItem("user", JSON.stringify(userData));
+    } else {
+      console.error("Login failed: userData is undefined");
+    }
   };
 
   const logout = () => {

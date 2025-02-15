@@ -66,7 +66,7 @@ const login = async (userData) => {
 
     const data = await response.json();
     localStorage.setItem("auth_token", data.token);
-    localStorage.setItem("user", JSON.stringify(data.user));
+    localStorage.setItem("user", JSON.stringify(data.user)); // Store the user object
     return data;
   } catch (error) {
     console.error("Login Error:", error);
