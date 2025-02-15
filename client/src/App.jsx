@@ -1,51 +1,20 @@
-import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthProvider";
+import Home from "./pages/Home";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
 
 function App() {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    } else {
-      fetch("/api/auth/profile", { credentials: "include" })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.user) {
-            setUser(data.user);
-            localStorage.setItem("user", JSON.stringify(data.user));
-          }
-        })
-        .catch((err) => console.error("Profile Fetch Error:", err));
-    }
-  }, []);
-
-  const handleLogin = () => {
-    window.location.href = "/api/auth/google";
-  };
-
-  const handleLogout = () => {
-    fetch("/api/logout", { credentials: "include" })
-      .then(() => {
-        setUser(null);
-        localStorage.removeItem("user");
-      })
-      .catch((err) => console.error("Logout Error:", err));
-  };
-
   return (
-    <div>
-      <h1>React + Google Auth</h1>
-      {user ? (
-        <div>
-          <h2>Welcome, {user.name}</h2>
-          <p>Email: {user.email}</p>
-          <button onClick={handleLogout}>Logout</button>
-        </div>
-      ) : (
-        <button onClick={handleLogin}>Login with Google</button>
-      )}
-    </div>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
