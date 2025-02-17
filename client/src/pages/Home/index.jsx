@@ -1,9 +1,24 @@
+//Dependencies
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/useAuth";
 import { useEffect } from "react";
 
+//Components
+import Login from "../../components/Login";
+
+//Pages
+import Feed from "../Feed";
+
+//Styles
+import "./index.css";
+
+//Icons & images
+import { FaGithub } from "react-icons/fa";
+import HomeImage from "../../assets/images/home.jpg";
+import GoogleImage from "../../assets/images/google.png";
+
 function Home() {
-  const { user, loginWithGoogle, logout } = useAuth();
+  const { user, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,24 +31,60 @@ function Home() {
     navigate("/signup");
   };
 
+  /*
+  No neeed for this function as we have a Login component
   const goToLogin = () => {
     navigate("/login");
   };
+  <button onClick={goToLogin}>Log In</button>
+  */
 
   return (
-    <div>
-      <h1>React + Google Auth</h1>
+    <div className="homepage">
       {user ? (
-        <div>
-          <h2>Welcome, {user.username}</h2>
-          <p>Email: {user.email}</p>
-          <button onClick={logout}>Logout</button>
-        </div>
+        <Feed />
       ) : (
-        <div>
-          <button onClick={loginWithGoogle}>LogIn / SignUp with Google</button>
-          <button onClick={goToSignup}>Sign Up</button>
-          <button onClick={goToLogin}>Log In</button>
+        <div className="home">
+          <div className="home-welcome">
+            <div className="home-title-message">
+              <p className="home-title">Alpha</p>
+              <p className="home-message">
+                Connect, share, and engage with the world around you.
+              </p>
+              <img
+                src={HomeImage}
+                alt="Digital world image"
+                className="home-image"
+              />
+            </div>
+            <div className="home-authentication">
+              <div className="home-login">
+                <Login />
+              </div>
+              <div className="home-login-google">
+                <img
+                  src={GoogleImage}
+                  alt="Google image"
+                  className="home-google-image"
+                />
+                <button onClick={loginWithGoogle}>Login with Google</button>
+              </div>
+              <div className="home-signup">
+                <button onClick={goToSignup}>Sign Up</button>
+              </div>
+            </div>
+          </div>
+          <div className="footer">
+            <p>© {new Date().getFullYear()} Alpha. All rights reserved.</p>
+            <a
+              href="https://github.com/joaocorreiaprof/Alpha"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="github-link"
+            >
+              <FaGithub size={30} />
+            </a>
+          </div>
         </div>
       )}
     </div>

@@ -49,9 +49,9 @@
 }
 
 .submit-btn {
-  width: 100%;
+  width: 25%;
   padding: 10px;
-  background-color: #4caf50;
+  background-color: #3578e5;
   color: white;
   border: none;
   border-radius: 4px;
@@ -60,7 +60,7 @@
 }
 
 .submit-btn:hover {
-  background-color: #45a049;
+  background: #0056b3;
 }
 
 .google-login-btn {

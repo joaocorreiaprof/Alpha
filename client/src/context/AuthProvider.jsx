@@ -11,10 +11,13 @@ export const AuthProvider = ({ children }) => {
     if (storedUser) {
       try {
         const parsedUser = JSON.parse(storedUser);
-        console.log("Parsed user from localStorage:", parsedUser);
+        console.log(
+          "✅ AuthProvider - Parsed user from localStorage:",
+          parsedUser
+        );
         setUser(parsedUser);
       } catch (error) {
-        console.error("Failed to parse user from localStorage:", error);
+        console.error("❌ AuthProvider - Failed to parse user:", error);
         localStorage.removeItem("user");
       }
     } else {
@@ -28,7 +31,7 @@ export const AuthProvider = ({ children }) => {
           }
         })
         .catch((error) => {
-          console.error("Profile Fetch Error:", error);
+          console.error("❌ AuthProvider - Profile fetch error:", error);
         });
     }
   }, []);
