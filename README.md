@@ -1,2 +1,3 @@
-# Alpha
-Social media site
+## Social network website
+
+...in progress...

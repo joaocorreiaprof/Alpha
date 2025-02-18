@@ -1,3 +1,0 @@
-## Social network website
-
-...in progress...
