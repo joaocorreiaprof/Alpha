@@ -1,3 +1,7 @@
+//Dependencies
+import { useAuth } from "../../context/useAuth";
+import { Link } from "react-router-dom";
+
 //Style
 import "./index.css";
 
@@ -10,15 +14,16 @@ import { MdGroups2 } from "react-icons/md";
 import { FaGamepad } from "react-icons/fa6";
 import { SiMessenger } from "react-icons/si";
 import { IoMdNotifications } from "react-icons/io";
-import { CgProfile } from "react-icons/cg";
+import { TbLogout2 } from "react-icons/tb";
 
 const Header = () => {
+  const { user, logout } = useAuth();
   return (
     <div className="header">
       <div className="header-left">
-        <div className="header-icon-container">
+        <Link to="/feed" className="header-icon-container">
           <FcMindMap className="header-icon" />
-        </div>
+        </Link>
         <div className="header-search">
           <CiSearch className="search-icon" />
           <span className="tooltip">Search</span>
@@ -26,36 +31,46 @@ const Header = () => {
         </div>
       </div>
       <div className="header-center">
-        <div className="header-icon-container">
+        <Link to="/feed" className="header-icon-container">
           <HiHome className="header-icon" />
           <span className="tooltip">Home</span>
-        </div>
-        <div className="header-icon-container">
+        </Link>
+        <Link to="/videos" className="header-icon-container">
           <MdOutlineOndemandVideo className="header-icon" />
           <span className="tooltip">Videos</span>
-        </div>
-        <div className="header-icon-container">
+        </Link>
+        <Link to="/groups" className="header-icon-container">
           <MdGroups2 className="header-icon" />
           <span className="tooltip">Groups</span>
-        </div>
-        <div className="header-icon-container">
+        </Link>
+        <Link to="/games" className="header-icon-container">
           <FaGamepad className="header-icon" />
           <span className="tooltip">Games</span>
-        </div>
+        </Link>
       </div>
       <div className="header-right">
-        <div className="header-icon-container">
+        <Link to="/messenger" className="header-icon-container">
           <SiMessenger className="header-icon" />
           <span className="tooltip">Messenger</span>
-        </div>
+        </Link>
         <div className="header-icon-container">
           <IoMdNotifications className="header-icon" />
           <span className="tooltip">Notifications</span>
         </div>
         <div className="header-icon-container">
-          <CgProfile className="header-icon" />
-          <span className="tooltip">Profile</span>
+          <button onClick={logout} className="header-logout-btn">
+            <TbLogout2 className="header-icon" />
+          </button>
+          <span className="tooltip">Logout</span>
         </div>
+        <Link to="/profile" className="header-icon-container">
+          <img
+            src={user.profilePicture}
+            alt="Profile"
+            className="user-picture"
+          />
+          <span className="tooltip">Profile</span>
+        </Link>
       </div>
     </div>
   );

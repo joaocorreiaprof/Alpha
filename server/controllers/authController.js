@@ -59,7 +59,11 @@ const googleCallback = async (req, res) => {
 
     // Store token in cookie
     res.cookie("auth_token", token, { httpOnly: true });
-    res.redirect("http://localhost:5173");
+
+    // Redirect to the front end with user profile information
+    res.redirect(
+      `http://localhost:5173?user=${encodeURIComponent(JSON.stringify(user))}`
+    );
   } catch (error) {
     console.error("Error:", error.response?.data?.error || error.message);
     res.redirect("/login");

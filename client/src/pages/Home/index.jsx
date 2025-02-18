@@ -6,9 +6,6 @@ import { useEffect } from "react";
 //Components
 import Login from "../../components/Login";
 
-//Pages
-import Feed from "../Feed";
-
 //Styles
 import "./index.css";
 
@@ -31,18 +28,10 @@ function Home() {
     navigate("/signup");
   };
 
-  /*
-  No neeed for this function as we have a Login component
-  const goToLogin = () => {
-    navigate("/login");
-  };
-  <button onClick={goToLogin}>Log In</button>
-  */
-
   return (
     <div className="homepage">
       {user ? (
-        <Feed />
+        navigate("/feed")
       ) : (
         <div className="home">
           <div className="home-welcome">

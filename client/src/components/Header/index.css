@@ -1,16 +1,18 @@
 .header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 10px 15px;
   border-bottom: 1.8px solid #ccc;
+  height: 5vh;
 }
 
 /* Left */
 .header-left {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 15px;
+  width: 20%;
 }
 
 /* Search */
@@ -49,12 +51,22 @@
 .header-center {
   display: flex;
   gap: 50px;
+  width: 60%;
+  justify-content: center;
 }
 
 /* Right */
 .header-right {
   display: flex;
   gap: 20px;
+  width: 20%;
+  justify-content: flex-end;
+}
+
+.header-logout-btn {
+  text-decoration: none;
+  border: none;
+  margin: 0;
 }
 
 /* Header Icon */
@@ -63,7 +75,7 @@
 }
 
 .header-icon {
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   color: #65686c;
   cursor: pointer;
   transition: background 0.3s, transform 0.6s ease-in-out;
@@ -78,11 +90,17 @@
   color: #3578e5;
 }
 
+.user-picture {
+  border-radius: 50%;
+  height: 1.7rem;
+  cursor: pointer;
+}
+
 /* Tooltip */
 .tooltip {
   display: none;
   position: absolute;
-  bottom: -20px;
+  bottom: -35px;
   left: 50%;
   transform: translateX(-50%);
   padding: 5px 10px;
