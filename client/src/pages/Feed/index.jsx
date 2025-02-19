@@ -67,54 +67,84 @@ const Feed = () => {
         </div>
         <div className="feed-body-left-companies">
           <p className="feed-body-left-companies-title">Featured Products</p>
-          <div className="feed-body-left-company">
-            <img
-              src={MilesInMiles}
-              alt="Miles in Mind Project"
-              className="feed-body-left-company-picture"
-            />
-            <div className="feed-body-left-company-text">
-              <p className="company-name">Miles in Mind</p>
-              <p className="company-description">Insightful blog content</p>
+          <a
+            href="https://blog-api-production-3f1e.up.railway.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="feed-body-left-company-link"
+          >
+            <div className="feed-body-left-company-div">
+              <img
+                src={MilesInMiles}
+                alt="Miles in Mind Project"
+                className="feed-body-left-company-picture"
+              />
+              <div className="feed-body-left-company-text">
+                <p className="company-name">Miles in Mind</p>
+                <p className="company-description">Insightful blog content</p>
+              </div>
             </div>
-          </div>
-          <div className="feed-body-left-company">
-            <img
-              src={FileUploader}
-              alt="Miles in Mind Project"
-              className="feed-body-left-company-picture"
-            />
-            <div className="feed-body-left-company-text">
-              <p className="company-name">File Uploader</p>
-              <p className="company-description">
-                Fast file upload/download tool
-              </p>
+          </a>
+          <a
+            href="https://file-uploader-production-1ba7.up.railway.app/log-in"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="feed-body-left-company-link"
+          >
+            <div className="feed-body-left-company-div">
+              <img
+                src={FileUploader}
+                alt="Miles in Mind Project"
+                className="feed-body-left-company-picture"
+              />
+              <div className="feed-body-left-company-text">
+                <p className="company-name">File Uploader</p>
+                <p className="company-description">
+                  Fast file upload/download tool
+                </p>
+              </div>
             </div>
-          </div>
-          <div className="feed-body-left-company">
-            <img
-              src={BookMinder}
-              alt="Miles in Mind Project"
-              className="feed-body-left-company-picture"
-            />
-            <div className="feed-body-left-company-text">
-              <p className="company-name">Book Minder</p>
-              <p className="company-description">Track your book collection</p>
+          </a>
+          <a
+            href="https://inventory-application-production-3863.up.railway.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="feed-body-left-company-link"
+          >
+            <div className="feed-body-left-company-div">
+              <img
+                src={BookMinder}
+                alt="Miles in Mind Project"
+                className="feed-body-left-company-picture"
+              />
+              <div className="feed-body-left-company-text">
+                <p className="company-name">Book Minder</p>
+                <p className="company-description">
+                  Track your book collection
+                </p>
+              </div>
             </div>
-          </div>
-          <div className="feed-body-left-company">
-            <img
-              src={Freaky}
-              alt="Miles in Mind Project"
-              className="feed-body-left-company-picture"
-            />
-            <div className="feed-body-left-company-text">
-              <p className="company-name">Freaky</p>
-              <p className="company-description">
-                Trendy clothing & accessories
-              </p>
+          </a>
+          <a
+            href="https://getfreaky.netlify.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="feed-body-left-company-link"
+          >
+            <div className="feed-body-left-company-div">
+              <img
+                src={Freaky}
+                alt="Miles in Mind Project"
+                className="feed-body-left-company-picture"
+              />
+              <div className="feed-body-left-company-text">
+                <p className="company-name">Freaky</p>
+                <p className="company-description">
+                  Trendy clothing & accessories
+                </p>
+              </div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
       <div className="feed-body-center">
