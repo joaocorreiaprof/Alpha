@@ -4,148 +4,18 @@
 }
 
 /*Left*/
-.feed-body-left {
-  display: flex;
-  flex-direction: column;
+.feed-left {
   width: 20%;
-  padding: 10px 15px;
-}
-
-/*Dashboard pages*/
-
-.feed-body-left-pages {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 60%;
-  border-bottom: 1.8px solid #ccc;
-}
-
-.feed-body-left-page {
-  text-decoration: none;
-}
-
-.feed-body-left-page-btn {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 12px;
-  width: 100%;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.feed-body-left-page-btn:hover {
-  background-color: #e0e0e0;
-}
-
-.feed-user-picture,
-.feed-icon-btn {
-  height: 2.3rem;
-  width: 2.3rem;
-  border-radius: 50%;
-  object-fit: cover;
-  color: red;
-}
-
-.feed-body-left-page-btn p {
-  font-size: 1rem;
-  color: #333;
-  margin: 0;
-  text-decoration: none;
-}
-
-/* Companies Section */
-.feed-body-left-companies {
-  display: flex;
-  flex-direction: column;
-  height: 40%;
-  padding: 10px 15px;
-  overflow-y: hidden;
-}
-
-.feed-body-left-company-link {
-  text-decoration: none;
-}
-
-.feed-body-left-companies-title {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #65686c;
-  margin-bottom: 5px;
-}
-
-/* Individual Company Cards */
-.feed-body-left-company-div {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  border-radius: 10px;
-  background: white;
-  padding: 10px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.feed-body-left-company-div:hover {
-  background-color: #e0e0e0;
-}
-
-/* Company Images */
-.feed-body-left-company-picture {
-  width: 100px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 8px;
-  padding: 5px;
-  border: 1px solid #ddd;
-}
-
-/* Company Text */
-.feed-body-left-company-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.company-name {
-  font-size: 1rem;
-  font-weight: bold;
-  color: #222;
-}
-
-.company-description {
-  font-size: 0.9rem;
-  color: #666;
-}
-
-.feed-body-left-companies:hover {
-  overflow-y: auto;
-}
-
-/* Scrollbar Styles */
-.feed-body-left-companies::-webkit-scrollbar {
-  width: 8px;
-}
-
-.feed-body-left-companies::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 4px;
-}
-
-.feed-body-left-companies::-webkit-scrollbar-thumb:hover {
-  background: #999;
 }
 
 /*Center*/
 
-.feed-body-center {
+.feed-center {
   width: 60%;
 }
 
 /*Right*/
 
-.feed-body-right {
+.feed-right {
   width: 20%;
 }

@@ -1,0 +1,88 @@
+/*Main container*/
+.feed-body-right {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 15px;
+  width: 100%;
+  height: 100%;
+}
+
+.feed-body-right:hover {
+  overflow-y: auto;
+}
+/*Content*/
+
+/*Sponsored*/
+
+.feed-body-right-sponsored {
+  height: 26%;
+  overflow-y: hidden;
+}
+
+.feed-body-right-sponsored:hover {
+  overflow-y: auto;
+}
+
+.sponsorship-link {
+  text-decoration: none;
+}
+
+.sponsorship {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-radius: 10px;
+  background: white;
+  padding: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sponsorship:hover {
+  background-color: #e0e0e0;
+}
+
+.feed-body-right-sponsored-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #65686c;
+  margin-bottom: 5px;
+}
+
+.sponsorship-image {
+  width: 100px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  padding: 5px;
+  border: 1px solid #ddd;
+}
+
+.sponsorship-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.sponsorship-text-title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #222;
+}
+
+.sponsorship-text-site {
+  font-size: 0.9rem;
+  color: #5c5c5c;
+}
+
+/*Friends*/
+
+.feed-body-right-friends {
+  height: 37%;
+  background-color: aquamarine;
+}
+
+/*Groups*/
+
+.feed-body-right-groups {
+  height: 37%;
+  background-color: bisque;
+}

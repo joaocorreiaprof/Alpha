@@ -111,6 +111,10 @@ const signUp = async (req, res) => {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // Set default profile picture if none is provided
+    const defaultProfilePic =
+      "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png";
+
     // Create new user
     console.log("Creating new user with:", {
       username,
@@ -122,6 +126,7 @@ const signUp = async (req, res) => {
         username,
         email,
         password: hashedPassword,
+        profilePicture: defaultProfilePic,
       },
     });
 
@@ -130,7 +135,7 @@ const signUp = async (req, res) => {
       { id: user.id, email: user.email, username: user.username },
       JWT_SECRET,
       {
-        expiresIn: "1h",
+        expiresIn: "24h",
       }
     );
 
@@ -168,7 +173,7 @@ const login = async (req, res) => {
       { id: user.id, email: user.email, username: user.username },
       JWT_SECRET,
       {
-        expiresIn: "1h",
+        expiresIn: "24h",
       }
     );
 
@@ -176,7 +181,12 @@ const login = async (req, res) => {
     res.cookie("auth_token", token, { httpOnly: true });
     res.status(200).json({
       message: "Login successful",
-      user: { id: user.id, email: user.email, username: user.username },
+      user: {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+        profilePicture: user.profilePicture, // Include profilePicture in the response
+      },
     });
   } catch (error) {
     console.error("Login Error:", error.message); // Debug log
