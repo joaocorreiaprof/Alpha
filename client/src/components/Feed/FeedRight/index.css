@@ -77,12 +77,24 @@
 
 .feed-body-right-friends {
   height: 37%;
-  background-color: aquamarine;
+}
+
+.todo-friends {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #65686c;
+  margin-bottom: 5px;
 }
 
 /*Groups*/
 
 .feed-body-right-groups {
   height: 37%;
-  background-color: bisque;
+}
+
+.todo-groups {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #65686c;
+  margin-bottom: 5px;
 }

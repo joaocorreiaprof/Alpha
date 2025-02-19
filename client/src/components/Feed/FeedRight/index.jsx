@@ -95,10 +95,10 @@ const FeedRight = () => {
         </a>
       </div>
       <div className="feed-body-right-friends">
-        <p>Friends</p>
+        <p className="todo-friends">Friends</p>
       </div>
       <div className="feed-body-right-groups">
-        <p>Groups</p>
+        <p className="todo-groups">Groups</p>
       </div>
     </div>
   );

@@ -12,7 +12,7 @@
 .feed-body-left-pages {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 25px;
   height: 60%;
   border-bottom: 1.8px solid #ccc;
 }

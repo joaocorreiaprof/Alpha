@@ -2,6 +2,7 @@
 
 //Components
 import FeedLeft from "../../components/Feed/FeedLeft";
+import FeedCenter from "../../components/Feed/FeedCenter";
 import FeedRight from "../../components/Feed/FeedRight";
 
 //Styles
@@ -14,7 +15,7 @@ const Feed = () => {
         <FeedLeft />
       </div>
       <div className="feed-center">
-        <p>center content</p>
+        <FeedCenter />
       </div>
       <div className="feed-right">
         <FeedRight />
