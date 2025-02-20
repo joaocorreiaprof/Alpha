@@ -100,8 +100,7 @@ const FeedRight = () => {
       <div className="feed-body-right-friends">
         <p className="todo-friends">Friends</p>
       </div>
-      <div className="feed-body-right-groups">
-        <p className="todo-groups">Groups</p>
+      <div className="feed-body-right-users">
         <Users />
       </div>
     </div>

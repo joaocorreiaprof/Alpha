@@ -1,6 +1,9 @@
 //Hooks
 import useUsers from "../../hooks/users/useUsers";
 
+//Styles
+import "./index.css";
+
 const Users = () => {
   const { users, loading, error } = useUsers();
 
@@ -13,10 +16,17 @@ const Users = () => {
   }
   return (
     <div className="users-container">
-      <p>List of all users</p>
+      <p className="users-title">Users</p>
       <ul>
         {users.map((user) => (
-          <li key={user.id}>{user.username}</li>
+          <div className="users-user-container" key={user.id}>
+            <img
+              src={user.profilePicture}
+              alt="User profile picture"
+              className="users-user-profile-picture"
+            />
+            {user.username}
+          </div>
         ))}
       </ul>
     </div>

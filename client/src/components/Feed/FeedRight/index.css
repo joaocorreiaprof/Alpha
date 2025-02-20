@@ -88,13 +88,6 @@
 
 /*Groups*/
 
-.feed-body-right-groups {
+.feed-body-right-users {
   height: 37%;
-}
-
-.todo-groups {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #65686c;
-  margin-bottom: 5px;
 }
