@@ -16,6 +16,9 @@ import { SiMessenger } from "react-icons/si";
 import { IoMdNotifications } from "react-icons/io";
 import { TbLogout2 } from "react-icons/tb";
 
+//Images
+import FallbackImage from "../../assets/images/fallbackprofile.jpg";
+
 const Header = () => {
   const { user, logout } = useAuth();
   return (
@@ -68,6 +71,10 @@ const Header = () => {
             src={user.profilePicture}
             alt="Profile"
             className="user-picture"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = FallbackImage;
+            }}
           />
           <span className="tooltip">Profile</span>
         </Link>

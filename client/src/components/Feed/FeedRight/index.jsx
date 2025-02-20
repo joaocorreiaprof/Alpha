@@ -1,6 +1,9 @@
 //Styles
 import "./index.css";
 
+//Components
+import Users from "../../Users";
+
 //Images
 import Dog from "../../../assets/images/News/dog.png";
 import LedZeppelins from "../../../assets/images/News/led.png";
@@ -99,6 +102,7 @@ const FeedRight = () => {
       </div>
       <div className="feed-body-right-groups">
         <p className="todo-groups">Groups</p>
+        <Users />
       </div>
     </div>
   );

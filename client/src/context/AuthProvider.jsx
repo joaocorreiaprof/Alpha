@@ -14,26 +14,18 @@ export const AuthProvider = ({ children }) => {
     if (userParam) {
       try {
         const parsedUser = JSON.parse(decodeURIComponent(userParam));
-        console.log("✅ AuthProvider - Parsed user from URL:", parsedUser);
         setUser(parsedUser);
         localStorage.setItem("user", JSON.stringify(parsedUser));
         window.history.replaceState({}, document.title, "/"); // Clear the URL parameter
       } catch (error) {
-        console.error(
-          "❌ AuthProvider - Failed to parse user from URL:",
-          error
-        );
+        console.error("AuthProvider - Failed to parse user from URL:", error);
       }
     } else if (storedUser) {
       try {
         const parsedUser = JSON.parse(storedUser);
-        console.log(
-          "✅ AuthProvider - Parsed user from localStorage:",
-          parsedUser
-        );
         setUser(parsedUser);
       } catch (error) {
-        console.error("❌ AuthProvider - Failed to parse user:", error);
+        console.error("AuthProvider - Failed to parse user:", error);
         localStorage.removeItem("user");
       }
     } else {
