@@ -1,4 +1,4 @@
-//Dependecies
+//Dependencies
 import { useState } from "react";
 import { useAuth } from "../../../context/useAuth";
 import EmojiPicker from "emoji-picker-react";
@@ -10,7 +10,7 @@ import {
   format,
 } from "date-fns";
 //Hooks
-import usePosts from "../../../hooks/posts/postsHooks";
+import { usePosts, useComments } from "../../../hooks/posts/postsHooks";
 
 //Styles
 import "./index.css";
@@ -39,15 +39,40 @@ const FeedCenter = () => {
   const { posts, loading, error, createPost } = usePosts();
   const [newPostContent, setNewPostContent] = useState("");
   const [showPicker, setShowPicker] = useState(false);
+  const [selectedPostId, setSelectedPostId] = useState(null);
+  const {
+    comments,
+    loading: commentsLoading,
+    error: commentsError,
+    createComment,
+  } = useComments(selectedPostId);
+  const [newCommentContent, setNewCommentContent] = useState("");
+  const [showCommentPicker, setShowCommentPicker] = useState(false);
 
   const handleEmojiClick = (emojiData) => {
     setNewPostContent((prev) => prev + emojiData.emoji);
+  };
+
+  const handleCommentEmojiClick = (emojiData) => {
+    setNewCommentContent((prev) => prev + emojiData.emoji);
   };
 
   const handleCreatePost = () => {
     const authorId = user.id;
     createPost(authorId, newPostContent);
     setNewPostContent("");
+  };
+
+  const handleCreateComment = () => {
+    const userId = user.id;
+    createComment(userId, newCommentContent, selectedPostId);
+    setNewCommentContent("");
+  };
+
+  const handleCommentClick = (postId) => {
+    setSelectedPostId((prevSelectedPostId) =>
+      prevSelectedPostId === postId ? null : postId
+    );
   };
 
   return (
@@ -107,10 +132,56 @@ const FeedCenter = () => {
                 <AiOutlineLike />
                 <p>Like</p>
               </button>
-              <button className="post-option">
+              <button
+                className="post-option"
+                onClick={() => handleCommentClick(post.id)}
+              >
                 <FaRegComment />
                 <p>Comment</p>
               </button>
+            </div>
+            <div className="comments-section">
+              <button
+                className="show-comments-btn"
+                onClick={() => handleCommentClick(post.id)}
+              >
+                {post.comments.length} Comments
+              </button>
+              {selectedPostId === post.id && (
+                <>
+                  {commentsLoading && <p>Loading comments...</p>}
+                  {commentsError && <p>Error: {commentsError}</p>}
+                  {comments.map((comment) => (
+                    <div key={comment.id} className="comment">
+                      <p>{comment.content}</p>
+                    </div>
+                  ))}
+                  <div className="comment-input-container">
+                    <textarea
+                      placeholder="Write a comment..."
+                      value={newCommentContent}
+                      onChange={(e) => setNewCommentContent(e.target.value)}
+                      className="comment-textarea"
+                    />
+                    <div className="extra-buttons">
+                      <div className="emoji-container">
+                        <button
+                          className="feed-open-emoji"
+                          onClick={() =>
+                            setShowCommentPicker(!showCommentPicker)
+                          }
+                        >
+                          😀
+                        </button>
+                      </div>
+                      {showCommentPicker && (
+                        <EmojiPicker onEmojiClick={handleCommentEmojiClick} />
+                      )}
+                    </div>
+                    <button onClick={handleCreateComment}>Post Comment</button>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         ))}

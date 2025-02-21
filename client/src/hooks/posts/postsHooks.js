@@ -36,4 +36,45 @@ const usePosts = () => {
   return { posts, loading, error, createPost };
 };
 
-export default usePosts;
+const useComments = (postId) => {
+  const [comments, setComments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const data = await postsService.displayAllComments(postId);
+        setComments(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (postId) {
+      fetchComments();
+    }
+  }, [postId]);
+
+  const createComment = async (userId, content) => {
+    try {
+      setLoading(true);
+      const newComment = await postsService.createComment(
+        userId,
+        content,
+        postId
+      );
+      setComments((prevComments) => [newComment, ...prevComments]);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { comments, loading, error, createComment };
+};
+
+export { usePosts, useComments };

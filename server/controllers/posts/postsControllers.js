@@ -56,4 +56,49 @@ const getAllPosts = async (req, res) => {
   }
 };
 
-module.exports = { createPost, getAllPosts };
+const createComment = async (req, res) => {
+  const { userId, content, postId } = req.body;
+
+  if (!userId || !content || !postId) {
+    return res
+      .status(400)
+      .json({ error: "userId, content, and postId are required." });
+  }
+
+  try {
+    const newComment = await prisma.comment.create({
+      data: {
+        userId,
+        content,
+        postId: postId,
+      },
+    });
+    res.status(201).json(newComment);
+  } catch (error) {
+    console.error("Error creating comment", error);
+    res.status(500).send("An unexpected error occurred");
+  }
+};
+
+const displayAllComments = async (req, res) => {
+  const { postId } = req.params;
+
+  if (!postId) {
+    return res.status(400).json({ error: "postId is required." });
+  }
+
+  try {
+    const comments = await prisma.comment.findMany({
+      where: { postId: postId },
+      include: {
+        user: true,
+      },
+    });
+    res.status(200).json(comments);
+  } catch (error) {
+    console.error("Error fetching comments:", error);
+    res.status(500).send("An unexpected error occurred");
+  }
+};
+
+module.exports = { createPost, getAllPosts, createComment, displayAllComments };
