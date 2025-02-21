@@ -9,6 +9,7 @@ import Dog from "../../../assets/images/News/dog.png";
 import LedZeppelins from "../../../assets/images/News/led.png";
 import Porto from "../../../assets/images/News/porto.png";
 import Dating from "../../../assets/images/News/dating.png";
+import FallbackImage from "../../../assets/images/fallbackprofile.jpg";
 
 const FeedRight = () => {
   return (

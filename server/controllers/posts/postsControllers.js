@@ -17,6 +17,11 @@ const createPost = async (req, res) => {
         content,
         authorId,
       },
+      include: {
+        author: {
+          select: { id: true, username: true, profilePicture: true },
+        },
+      },
     });
 
     res.status(201).json(post);

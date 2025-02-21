@@ -4,6 +4,9 @@ import useUsers from "../../hooks/users/useUsers";
 //Styles
 import "./index.css";
 
+//Images
+import FallbackImage from "../../assets/images/fallbackprofile.jpg";
+
 const Users = () => {
   const { users, loading, error } = useUsers();
 
@@ -24,6 +27,10 @@ const Users = () => {
               src={user.profilePicture}
               alt="User profile picture"
               className="users-user-profile-picture"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = FallbackImage;
+              }}
             />
             {user.username}
           </div>
