@@ -33,7 +33,7 @@
   line-height: 1.6;
 }
 
-.feed-input-container button {
+.feed-post-btn {
   background-color: #3578e5;
   color: #fff;
   border: none;
@@ -44,7 +44,7 @@
   width: fit-content;
 }
 
-.feed-input-container button:hover {
+.feed-post-btn:hover {
   background-color: #165ec9;
 }
 
@@ -95,6 +95,28 @@
   font-size: 0.9rem;
   color: #666;
   margin-top: 5px;
+}
+
+/*Input buttons*/
+.feed-input-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/*Emoji*/
+
+.emoji-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.feed-open-emoji {
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  width: fit-content;
 }
 
 /* Scrollbar Styles */

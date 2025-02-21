@@ -1,6 +1,7 @@
 //Dependecies
 import { useState } from "react";
 import { useAuth } from "../../../context/useAuth";
+import EmojiPicker from "emoji-picker-react";
 import {
   formatDistanceToNow,
   isToday,
@@ -33,6 +34,11 @@ const FeedCenter = () => {
   const { user } = useAuth();
   const { posts, loading, error, createPost } = usePosts();
   const [newPostContent, setNewPostContent] = useState("");
+  const [showPicker, setShowPicker] = useState(false);
+
+  const handleEmojiClick = (emojiData) => {
+    setNewPostContent((prev) => prev + emojiData.emoji);
+  };
 
   const handleCreatePost = () => {
     const authorId = user.id;
@@ -53,8 +59,22 @@ const FeedCenter = () => {
           }}
           className="feed-textarea"
         />
-
-        <button onClick={handleCreatePost}>Post</button>
+        <div className="feed-input-buttons">
+          <div className="extra-buttons">
+            <div className="emoji-container">
+              <button
+                className="feed-open-emoji"
+                onClick={() => setShowPicker(!showPicker)}
+              >
+                😀
+              </button>
+            </div>
+            {showPicker && <EmojiPicker onEmojiClick={handleEmojiClick} />}
+          </div>
+          <button className="feed-post-btn" onClick={handleCreatePost}>
+            Post
+          </button>
+        </div>
       </div>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
