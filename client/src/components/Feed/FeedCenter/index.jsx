@@ -15,6 +15,10 @@ import usePosts from "../../../hooks/posts/postsHooks";
 //Styles
 import "./index.css";
 
+//Icons
+import { AiOutlineLike } from "react-icons/ai";
+import { FaRegComment } from "react-icons/fa6";
+
 //Images
 import FallbackImage from "../../../assets/images/fallbackprofile.jpg";
 
@@ -95,7 +99,19 @@ const FeedCenter = () => {
                 <p className="post-date">{formatPostDate(post.updatedAt)}</p>
               </div>
             </div>
-            <p className="post-content">{post.content}</p>
+            <div className="post-content-container">
+              <p className="post-content">{post.content}</p>
+            </div>
+            <div className="post-options">
+              <button className="post-option">
+                <AiOutlineLike />
+                <p>Like</p>
+              </button>
+              <button className="post-option">
+                <FaRegComment />
+                <p>Comment</p>
+              </button>
+            </div>
           </div>
         ))}
       </div>
