@@ -2,7 +2,7 @@ const getAllUsers = async () => {
   try {
     const response = await fetch("/api/users/all-users");
     if (!response.ok) {
-      throw new Error("Network response was not ok");
+      throw new Error("Network response failded");
     }
     const users = await response.json();
     return users;
