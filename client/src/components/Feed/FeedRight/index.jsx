@@ -3,6 +3,7 @@ import "./index.css";
 
 //Components
 import Users from "../../Users";
+import Friends from "../../Friends";
 
 //Images
 import Dog from "../../../assets/images/News/dog.png";
@@ -98,7 +99,7 @@ const FeedRight = () => {
         </a>
       </div>
       <div className="feed-body-right-friends">
-        <p className="todo-friends">Friends</p>
+        <Friends />
       </div>
       <div className="feed-body-right-users">
         <Users />
