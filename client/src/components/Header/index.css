@@ -75,6 +75,11 @@
   position: relative;
 }
 
+.alpha-icon {
+  height: 5rem;
+  transition: background 0.3s, transform 0.6s ease-in-out;
+}
+
 .header-icon {
   font-size: 1.7rem;
   color: #65686c;
@@ -84,6 +89,10 @@
 
 .header-right .header-icon {
   color: black;
+}
+
+.alpha-icon:hover {
+  transform: rotate(360deg);
 }
 
 .header-icon:hover {

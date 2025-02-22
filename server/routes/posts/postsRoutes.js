@@ -6,6 +6,7 @@ const {
   getAllPosts,
   createComment,
   displayAllComments,
+  likePost,
 } = require("../../controllers/posts/postsControllers");
 
 //posts
@@ -15,5 +16,8 @@ router.get("/all-posts", getAllPosts);
 //comments
 router.post("/new-comment", createComment);
 router.get("/all-comments/:postId", displayAllComments);
+
+//likes
+router.post("/like-post", likePost);
 
 module.exports = router;

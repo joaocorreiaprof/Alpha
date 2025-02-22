@@ -118,6 +118,7 @@
   font-size: 1.2rem;
   cursor: pointer;
   width: fit-content;
+  background-color: white;
 }
 
 /* Post Options */
@@ -148,25 +149,44 @@
   color: #3578e5;
 }
 
-/* Comments Section */
-.comments-section {
-  margin-top: 10px;
-  padding: 10px 15px;
-  border-top: 1px solid #ccd0d5;
+.count-likes {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
+.count-likes-icon {
+  height: 17px;
+  width: 17px;
+  color: white;
+  background-color: #3578e5;
+  padding: 2px;
+  border-radius: 50%;
+}
+
+.like-icon-blue {
+  color: #3578e5;
+}
+
+/* Comments Section */
+
 .comment {
-  background-color: #f5f6f7;
   padding: 10px;
   border-radius: 6px;
   margin-bottom: 10px;
-  border: 1px solid #ccd0d5;
 }
 
-.comment p {
+.comment-person-picture {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.comment-user-content {
   margin: 0;
   font-size: 0.95rem;
   color: #333;
+  padding-left: 50px;
 }
 
 .comment-textarea {
@@ -188,6 +208,12 @@
   gap: 10px;
 }
 
+.comment-likes-comments {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .show-comments-btn {
   background: none;
   border: none;
@@ -200,6 +226,21 @@
 
 .show-comments-btn:hover {
   text-decoration: underline;
+}
+
+.btn-post-comment {
+  background-color: #3578e5;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.btn-post-comment:hover {
+  background-color: #165ec9;
 }
 
 /* Scrollbar Styles */

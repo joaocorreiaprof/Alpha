@@ -13,6 +13,7 @@ import "./index.css";
 import { FaGithub } from "react-icons/fa";
 import HomeImage from "../../assets/images/home.jpg";
 import GoogleImage from "../../assets/images/google.png";
+import AlphaIcon from "../../assets/alphaIcon.png";
 
 function Home() {
   const { user, loginWithGoogle } = useAuth();

@@ -101,4 +101,47 @@ const displayAllComments = async (req, res) => {
   }
 };
 
-module.exports = { createPost, getAllPosts, createComment, displayAllComments };
+const likePost = async (req, res) => {
+  const { userId, postId } = req.body;
+
+  if (!userId || !postId) {
+    return res.status(400).json({ error: "userId and postId are required." });
+  }
+
+  try {
+    const existingLike = await prisma.like.findFirst({
+      where: {
+        userId,
+        postId,
+      },
+    });
+
+    if (existingLike) {
+      await prisma.like.delete({
+        where: {
+          id: existingLike.id,
+        },
+      });
+      return res.status(200).json({ message: "Like removed." });
+    } else {
+      const newLike = await prisma.like.create({
+        data: {
+          userId,
+          postId,
+        },
+      });
+      return res.status(201).json(newLike);
+    }
+  } catch (error) {
+    console.error("Error liking/unliking post:", error);
+    res.status(500).send("An unexpected error occurred");
+  }
+};
+
+module.exports = {
+  createPost,
+  getAllPosts,
+  createComment,
+  displayAllComments,
+  likePost,
+};

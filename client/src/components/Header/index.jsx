@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import "./index.css";
 
 //Icons
-import { FcMindMap } from "react-icons/fc";
 import { CiSearch } from "react-icons/ci";
 import { HiHome } from "react-icons/hi";
 import { MdOutlineOndemandVideo } from "react-icons/md";
@@ -18,6 +17,7 @@ import { TbLogout2 } from "react-icons/tb";
 
 //Images
 import FallbackImage from "../../assets/images/fallbackprofile.jpg";
+import AlphaIcon from "../../assets/alphaIcon.png";
 
 const Header = () => {
   const { user, logout } = useAuth();
@@ -25,7 +25,7 @@ const Header = () => {
     <div className="header">
       <div className="header-left">
         <Link to="/feed" className="header-icon-container">
-          <FcMindMap className="header-icon" />
+          <img src={AlphaIcon} alt="Alpha icon" className="alpha-icon" />
         </Link>
         <div className="header-search">
           <CiSearch className="search-icon" />

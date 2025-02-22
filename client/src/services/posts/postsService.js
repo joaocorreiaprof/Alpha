@@ -67,4 +67,31 @@ const displayAllComments = async (postId) => {
   }
 };
 
-export default { getAllPosts, createPost, createComment, displayAllComments };
+const likePost = async (userId, postId) => {
+  try {
+    const response = await fetch("/api/posts/like-post", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId, postId }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to like/unlike post");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error liking/unliking post:", error);
+    throw error;
+  }
+};
+
+export default {
+  getAllPosts,
+  createPost,
+  createComment,
+  displayAllComments,
+  likePost,
+};

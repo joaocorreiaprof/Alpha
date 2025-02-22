@@ -33,7 +33,30 @@ const usePosts = () => {
     }
   };
 
-  return { posts, loading, error, createPost };
+  const likePost = async (userId, postId) => {
+    try {
+      setLoading(true);
+      await postsService.likePost(userId, postId);
+      setPosts((prevPosts) =>
+        prevPosts.map((post) =>
+          post.id === postId
+            ? {
+                ...post,
+                likes: post.likes.some((like) => like.userId === userId)
+                  ? post.likes.filter((like) => like.userId !== userId)
+                  : [...post.likes, { userId }],
+              }
+            : post
+        )
+      );
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { posts, loading, error, createPost, likePost };
 };
 
 const useComments = (postId) => {

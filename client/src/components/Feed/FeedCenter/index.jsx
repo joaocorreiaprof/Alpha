@@ -16,7 +16,7 @@ import { usePosts, useComments } from "../../../hooks/posts/postsHooks";
 import "./index.css";
 
 //Icons
-import { AiOutlineLike } from "react-icons/ai";
+import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa6";
 
 //Images
@@ -36,7 +36,7 @@ const formatPostDate = (timestamp) => {
 
 const FeedCenter = () => {
   const { user } = useAuth();
-  const { posts, loading, error, createPost } = usePosts();
+  const { posts, loading, error, createPost, likePost } = usePosts();
   const [newPostContent, setNewPostContent] = useState("");
   const [showPicker, setShowPicker] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState(null);
@@ -73,6 +73,10 @@ const FeedCenter = () => {
     setSelectedPostId((prevSelectedPostId) =>
       prevSelectedPostId === postId ? null : postId
     );
+  };
+
+  const handleLikeClick = (postId) => {
+    likePost(user.id, postId);
   };
 
   return (
@@ -127,9 +131,28 @@ const FeedCenter = () => {
             <div className="post-content-container">
               <p className="post-content">{post.content}</p>
             </div>
+            <div className="comment-likes-comments">
+              <div className="count-likes">
+                <AiFillLike className="count-likes-icon" />
+                <p>{post.likes.length}</p>
+              </div>
+              <button
+                className="show-comments-btn"
+                onClick={() => handleCommentClick(post.id)}
+              >
+                {post.comments.length} Comments
+              </button>
+            </div>
             <div className="post-options">
-              <button className="post-option">
-                <AiOutlineLike />
+              <button
+                className="post-option"
+                onClick={() => handleLikeClick(post.id)}
+              >
+                {post.likes.some((like) => like.userId === user.id) ? (
+                  <AiFillLike className="like-icon-blue" />
+                ) : (
+                  <AiOutlineLike />
+                )}
                 <p>Like</p>
               </button>
               <button
@@ -141,19 +164,27 @@ const FeedCenter = () => {
               </button>
             </div>
             <div className="comments-section">
-              <button
-                className="show-comments-btn"
-                onClick={() => handleCommentClick(post.id)}
-              >
-                {post.comments.length} Comments
-              </button>
               {selectedPostId === post.id && (
                 <>
                   {commentsLoading && <p>Loading comments...</p>}
                   {commentsError && <p>Error: {commentsError}</p>}
                   {comments.map((comment) => (
                     <div key={comment.id} className="comment">
-                      <p>{comment.content}</p>
+                      <div className="comment-person-picture">
+                        <img
+                          src={comment.user.profilePicture}
+                          alt="Profile picture of the user that commented"
+                        />
+                        <div className="comment-user-username-data">
+                          <p className="comment-user-username">
+                            {comment.user.username}
+                          </p>
+                          <p className="post-date">
+                            {formatPostDate(post.updatedAt)}
+                          </p>
+                        </div>
+                      </div>
+                      <p className="comment-user-content">{comment.content}</p>
                     </div>
                   ))}
                   <div className="comment-input-container">
@@ -178,7 +209,12 @@ const FeedCenter = () => {
                         <EmojiPicker onEmojiClick={handleCommentEmojiClick} />
                       )}
                     </div>
-                    <button onClick={handleCreateComment}>Post Comment</button>
+                    <button
+                      className="btn-post-comment"
+                      onClick={handleCreateComment}
+                    >
+                      Comment
+                    </button>
                   </div>
                 </>
               )}
