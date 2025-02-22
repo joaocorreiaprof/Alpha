@@ -13,7 +13,6 @@ import "./index.css";
 import { FaGithub } from "react-icons/fa";
 import HomeImage from "../../assets/images/home.jpg";
 import GoogleImage from "../../assets/images/google.png";
-import AlphaIcon from "../../assets/alphaIcon.png";
 
 function Home() {
   const { user, loginWithGoogle } = useAuth();
@@ -42,7 +41,7 @@ function Home() {
                 Connect, share, and engage with the world around you.
               </p>
               <img
-                src={AlphaIcon}
+                src={HomeImage}
                 alt="Digital world image"
                 className="home-image"
               />
