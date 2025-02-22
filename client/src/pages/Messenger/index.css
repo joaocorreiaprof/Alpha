@@ -1,0 +1,15 @@
+.messenger-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 95vh;
+  font-size: 24px;
+  text-align: center;
+}
+
+.messenger-info {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #555;
+}

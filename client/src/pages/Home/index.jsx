@@ -42,7 +42,7 @@ function Home() {
                 Connect, share, and engage with the world around you.
               </p>
               <img
-                src={HomeImage}
+                src={AlphaIcon}
                 alt="Digital world image"
                 className="home-image"
               />
