@@ -1,0 +1,111 @@
+/*Main container*/
+.profile-main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+/*Profile Header*/
+.profile-header {
+  padding: 0px 17%;
+  width: 100%;
+  height: 70vh;
+  background: linear-gradient(to bottom, #b0b0b0 30%, #f2f4f7 100%);
+}
+
+/*Cover*/
+.profile-cover {
+  height: 70%;
+}
+
+.profile-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0 0 1.5% 1.5%;
+}
+
+/*User*/
+/*left*/
+.profile-user {
+  display: flex;
+  justify-content: space-between;
+  height: 30%;
+  width: 100%;
+  padding: 0px 4%;
+}
+
+.profile-user-left {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  gap: 20px;
+}
+
+.profile-user-profile-picture {
+  height: 90%;
+  border-radius: 50%;
+}
+
+.profile-user-name-friends {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.profile-user-username {
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/*Right*/
+
+.profile-user-right {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 50%;
+  gap: 30px;
+}
+
+/* Button styles */
+.profile-pic-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #3578e5;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.profile-pic-btn:hover {
+  background-color: #0056b3;
+}
+
+.cover-photo-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: black;
+  background-color: #d5d5d5;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cover-photo-btn:hover {
+  background-color: #7a8086;
+  color: white;
+}
