@@ -62,7 +62,15 @@ const googleCallback = async (req, res) => {
 
     // Redirect to the front end with user profile information
     res.redirect(
-      `http://localhost:5173?user=${encodeURIComponent(JSON.stringify(user))}`
+      `http://localhost:5173?user=${encodeURIComponent(
+        JSON.stringify({
+          id: user.id,
+          email: user.email,
+          username: user.username,
+          profilePicture: user.profilePicture,
+          bio: user.bio, // Include bio
+        })
+      )}`
     );
   } catch (error) {
     console.error("Error:", error.response?.data?.error || error.message);
@@ -79,7 +87,15 @@ const getProfile = (req, res) => {
     }
 
     const user = jwt.verify(token, JWT_SECRET);
-    res.json({ user });
+    res.json({
+      user: {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+        profilePicture: user.profilePicture,
+        bio: user.bio, // Include bio
+      },
+    });
   } catch (error) {
     console.error("Profile Fetch Error:", error.message);
     res.status(500).json({ user: null });
@@ -141,7 +157,16 @@ const signUp = async (req, res) => {
 
     // Store token in cookie
     res.cookie("auth_token", token, { httpOnly: true });
-    res.status(201).json({ message: "User created successfully" });
+    res.status(201).json({
+      message: "User created successfully",
+      user: {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+        profilePicture: user.profilePicture,
+        bio: user.bio, // Include bio
+      },
+    });
   } catch (error) {
     console.error("Sign Up Error:", error.message); // Debug log
     res.status(500).json({ error: "Internal server error" });
@@ -185,7 +210,8 @@ const login = async (req, res) => {
         id: user.id,
         email: user.email,
         username: user.username,
-        profilePicture: user.profilePicture, // Include profilePicture in the response
+        profilePicture: user.profilePicture,
+        bio: user.bio, // Include bio
       },
     });
   } catch (error) {

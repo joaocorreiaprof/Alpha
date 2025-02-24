@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
         const parsedUser = JSON.parse(decodeURIComponent(userParam));
         setUser(parsedUser);
         localStorage.setItem("user", JSON.stringify(parsedUser));
-        window.history.replaceState({}, document.title, "/"); // Clear the URL parameter
+        window.history.replaceState({}, document.title, "/");
       } catch (error) {
         console.error("AuthProvider - Failed to parse user from URL:", error);
       }

@@ -2,8 +2,9 @@
 .profile-main-container {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 95vh;
   width: 100%;
+  overflow-y: auto;
 }
 
 /*Profile Header*/
@@ -108,4 +109,57 @@
 .cover-photo-btn:hover {
   background-color: #7a8086;
   color: white;
+}
+
+/*Profile body*/
+
+.profile-body {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  padding: 0px 17%;
+}
+
+/*Body left*/
+
+.profile-body-left {
+  width: 45%;
+}
+
+.body-bio {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccd0d5;
+  gap: 15px;
+}
+
+.body-bio-title {
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+
+.body-bio-description {
+  font-size: 1.2rem;
+  color: #333;
+  line-height: 1.5;
+}
+
+.body-photos {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccd0d5;
+}
+
+/*Body right*/
+
+.profile-body-right {
+  width: 55%;
 }

@@ -1,4 +1,4 @@
-//Dependencies
+// Dependencies
 import { useState } from "react";
 import { useAuth } from "../../../context/useAuth";
 import EmojiPicker from "emoji-picker-react";
@@ -9,20 +9,21 @@ import {
   differenceInDays,
   format,
 } from "date-fns";
-//Hooks
+// Hooks
 import { usePosts, useComments } from "../../../hooks/posts/postsHooks";
 
-//Styles
+// Styles
 import "./index.css";
 
-//Icons
+// Icons
 import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa6";
 
-//Images
+// Images
 import FallbackImage from "../../../assets/images/fallbackprofile.jpg";
 
 const formatPostDate = (timestamp) => {
+  if (!timestamp) return "Just now";
   const date = new Date(timestamp);
 
   if (isToday(date)) {
@@ -36,12 +37,12 @@ const formatPostDate = (timestamp) => {
 
 const FeedCenter = () => {
   const { user } = useAuth();
-  const { posts, loading, error, createPost, likePost } = usePosts();
+  const { posts = [], loading, error, createPost, likePost } = usePosts();
   const [newPostContent, setNewPostContent] = useState("");
   const [showPicker, setShowPicker] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState(null);
   const {
-    comments,
+    comments = [],
     loading: commentsLoading,
     error: commentsError,
     createComment,
@@ -57,15 +58,15 @@ const FeedCenter = () => {
     setNewCommentContent((prev) => prev + emojiData.emoji);
   };
 
-  const handleCreatePost = () => {
+  const handleCreatePost = async () => {
     const authorId = user.id;
-    createPost(authorId, newPostContent);
+    await createPost(authorId, newPostContent);
     setNewPostContent("");
   };
 
-  const handleCreateComment = () => {
+  const handleCreateComment = async () => {
     const userId = user.id;
-    createComment(userId, newCommentContent, selectedPostId);
+    await createComment(userId, newCommentContent, selectedPostId);
     setNewCommentContent("");
   };
 
@@ -75,8 +76,8 @@ const FeedCenter = () => {
     );
   };
 
-  const handleLikeClick = (postId) => {
-    likePost(user.id, postId);
+  const handleLikeClick = async (postId) => {
+    await likePost(user.id, postId);
   };
 
   return (
@@ -116,7 +117,7 @@ const FeedCenter = () => {
           <div key={post.id} className="post">
             <div className="post-picture-username">
               <img
-                src={post.author.profilePicture}
+                src={post.author?.profilePicture || FallbackImage}
                 alt="Post author picture"
                 onError={(e) => {
                   e.target.onerror = null;
@@ -124,7 +125,7 @@ const FeedCenter = () => {
                 }}
               />
               <div className="post-username-date">
-                <p className="post-username">{post.author.username}</p>
+                <p className="post-username">{post.author?.username}</p>
                 <p className="post-date">{formatPostDate(post.updatedAt)}</p>
               </div>
             </div>
@@ -134,13 +135,13 @@ const FeedCenter = () => {
             <div className="comment-likes-comments">
               <div className="count-likes">
                 <AiFillLike className="count-likes-icon" />
-                <p>{post.likes.length}</p>
+                <p>{post.likes?.length || 0}</p>
               </div>
               <button
                 className="show-comments-btn"
                 onClick={() => handleCommentClick(post.id)}
               >
-                {post.comments.length} Comments
+                {post.comments?.length || 0} Comments{" "}
               </button>
             </div>
             <div className="post-options">
@@ -148,7 +149,7 @@ const FeedCenter = () => {
                 className="post-option"
                 onClick={() => handleLikeClick(post.id)}
               >
-                {post.likes.some((like) => like.userId === user.id) ? (
+                {post.likes?.some((like) => like.userId === user.id) ? (
                   <AiFillLike className="like-icon-blue" />
                 ) : (
                   <AiOutlineLike />
@@ -172,15 +173,15 @@ const FeedCenter = () => {
                     <div key={comment.id} className="comment">
                       <div className="comment-person-picture">
                         <img
-                          src={comment.user.profilePicture}
+                          src={comment.user?.profilePicture || FallbackImage}
                           alt="Profile picture of the user that commented"
                         />
                         <div className="comment-user-username-data">
                           <p className="comment-user-username">
-                            {comment.user.username}
+                            {comment.user?.username}
                           </p>
                           <p className="post-date">
-                            {formatPostDate(post.updatedAt)}
+                            {formatPostDate(comment.updatedAt)}
                           </p>
                         </div>
                       </div>

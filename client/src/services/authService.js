@@ -8,7 +8,9 @@ const getProfile = async () => {
       },
     });
     if (!response.ok) throw new Error("Failed to fetch profile");
-    return await response.json();
+    const data = await response.json();
+    localStorage.setItem("user", JSON.stringify(data.user));
+    return data;
   } catch (error) {
     console.error("Profile Fetch Error:", error);
     return null;
@@ -43,7 +45,10 @@ const signUp = async (userData) => {
       throw new Error("Failed to sign up");
     }
 
-    return await response.json();
+    const data = await response.json();
+    localStorage.setItem("auth_token", data.token);
+    localStorage.setItem("user", JSON.stringify(data.user));
+    return data;
   } catch (error) {
     console.error("Sign Up Error:", error);
     throw error;
@@ -66,7 +71,7 @@ const login = async (userData) => {
 
     const data = await response.json();
     localStorage.setItem("auth_token", data.token);
-    localStorage.setItem("user", JSON.stringify(data.user)); // Store the user object
+    localStorage.setItem("user", JSON.stringify(data.user));
     return data;
   } catch (error) {
     console.error("Login Error:", error);

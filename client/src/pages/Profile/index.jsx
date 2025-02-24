@@ -1,4 +1,4 @@
-//Dependencies
+//Dependecies
 import { useAuth } from "../../context/useAuth";
 
 //Style
@@ -13,6 +13,7 @@ import BackgroundImage from "../../assets/images/background.jpg";
 
 const Profile = () => {
   const { user } = useAuth();
+
   return (
     <div className="profile-main-container">
       <div className="profile-header">
@@ -48,8 +49,23 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      <div className="profile-body"></div>
+      <div className="profile-body">
+        <div className="profile-body-left">
+          <div className="body-bio">
+            <p className="body-bio-title">Bio</p>
+            <p className="body-bio-description">{user.bio}</p>
+          </div>
+          <div className="body-photos">
+            <p>Photos</p>
+          </div>
+        </div>
+        <div className="profile-body-right">
+          <div className="profile-body-input-post"></div>
+          <div className="profile-body-user-posts"></div>
+        </div>
+      </div>
     </div>
   );
 };
+
 export default Profile;

@@ -42,9 +42,9 @@ const usePosts = () => {
           post.id === postId
             ? {
                 ...post,
-                likes: post.likes.some((like) => like.userId === userId)
+                likes: post.likes?.some((like) => like.userId === userId)
                   ? post.likes.filter((like) => like.userId !== userId)
-                  : [...post.likes, { userId }],
+                  : [...(post.likes || []), { userId }],
               }
             : post
         )
@@ -89,6 +89,7 @@ const useComments = (postId) => {
         content,
         postId
       );
+
       setComments((prevComments) => [newComment, ...prevComments]);
     } catch (err) {
       setError(err.message);

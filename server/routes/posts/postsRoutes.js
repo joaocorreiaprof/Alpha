@@ -7,11 +7,13 @@ const {
   createComment,
   displayAllComments,
   likePost,
+  getPostsByUser,
 } = require("../../controllers/posts/postsControllers");
 
 //posts
 router.post("/new-post", createPost);
 router.get("/all-posts", getAllPosts);
+router.get("/user-posts/:userId", getPostsByUser);
 
 //comments
 router.post("/new-comment", createComment);

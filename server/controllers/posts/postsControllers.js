@@ -66,14 +66,25 @@ const createComment = async (req, res) => {
   }
 
   try {
+    // Cria o comentário e inclui os dados do usuário
     const newComment = await prisma.comment.create({
       data: {
         userId,
         content,
-        postId: postId,
+        postId,
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            username: true,
+            profilePicture: true, // Inclui a profilePicture do usuário
+          },
+        },
       },
     });
-    res.status(201).json(newComment);
+
+    res.status(201).json(newComment); // Retorna o comentário com os dados do usuário
   } catch (error) {
     console.error("Error creating comment", error);
     res.status(500).send("An unexpected error occurred");
@@ -138,10 +149,40 @@ const likePost = async (req, res) => {
   }
 };
 
+const getPostsByUser = async (req, res) => {
+  const { userId } = req.params;
+
+  if (!userId) {
+    return res.status(400).json({ error: "userId is required." });
+  }
+
+  try {
+    const posts = await prisma.post.findMany({
+      where: { authorId: userId },
+      include: {
+        author: {
+          select: { id: true, username: true, profilePicture: true },
+        },
+        comments: true,
+        likes: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    res.status(200).json(posts);
+  } catch (error) {
+    console.error("Error fetching posts by user:", error);
+    res.status(500).json({ error: "An error occurred while fetching posts." });
+  }
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   createComment,
   displayAllComments,
   likePost,
+  getPostsByUser,
 };
