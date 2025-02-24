@@ -8,12 +8,14 @@ const {
   displayAllComments,
   likePost,
   getPostsByUser,
+  deletePost,
 } = require("../../controllers/posts/postsControllers");
 
 //posts
 router.post("/new-post", createPost);
 router.get("/all-posts", getAllPosts);
 router.get("/user-posts/:userId", getPostsByUser);
+router.delete("/delete-post/:postId", deletePost);
 
 //comments
 router.post("/new-comment", createComment);

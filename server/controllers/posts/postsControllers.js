@@ -33,6 +33,43 @@ const createPost = async (req, res) => {
   }
 };
 
+//Delete post
+const deletePost = async (req, res) => {
+  const { postId } = req.params;
+
+  if (!postId) {
+    return res.status(400).json({ error: "postId is required." });
+  }
+
+  try {
+    // Delete likes associated with the post
+    await prisma.like.deleteMany({
+      where: { postId: postId },
+    });
+
+    // Delete comments associated with the post
+    await prisma.comment.deleteMany({
+      where: { postId: postId },
+    });
+
+    // Delete the post
+    await prisma.post.delete({
+      where: { id: postId },
+    });
+
+    res
+      .status(200)
+      .json({
+        message: "Post and associated likes and comments deleted successfully.",
+      });
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while deleting the post." });
+  }
+};
+
 // Get all posts
 const getAllPosts = async (req, res) => {
   try {
@@ -66,7 +103,6 @@ const createComment = async (req, res) => {
   }
 
   try {
-    // Cria o comentário e inclui os dados do usuário
     const newComment = await prisma.comment.create({
       data: {
         userId,
@@ -78,13 +114,13 @@ const createComment = async (req, res) => {
           select: {
             id: true,
             username: true,
-            profilePicture: true, // Inclui a profilePicture do usuário
+            profilePicture: true,
           },
         },
       },
     });
 
-    res.status(201).json(newComment); // Retorna o comentário com os dados do usuário
+    res.status(201).json(newComment);
   } catch (error) {
     console.error("Error creating comment", error);
     res.status(500).send("An unexpected error occurred");
@@ -185,4 +221,5 @@ module.exports = {
   displayAllComments,
   likePost,
   getPostsByUser,
+  deletePost,
 };

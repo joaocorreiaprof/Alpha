@@ -33,6 +33,23 @@ const createPost = async (authorId, content) => {
   }
 };
 
+const deletePost = async (postId) => {
+  try {
+    const response = await fetch(`/api/posts/delete-post/${postId}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete post");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    throw error;
+  }
+};
+
 const createComment = async (userId, content, postId) => {
   try {
     const response = await fetch("/api/posts/new-comment", {
@@ -94,4 +111,5 @@ export default {
   createComment,
   displayAllComments,
   likePost,
+  deletePost,
 };

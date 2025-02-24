@@ -18,6 +18,7 @@ import "./index.css";
 // Icons
 import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa6";
+import { FaTrashAlt } from "react-icons/fa";
 
 // Images
 import FallbackImage from "../../../assets/images/fallbackprofile.jpg";
@@ -37,7 +38,14 @@ const formatPostDate = (timestamp) => {
 
 const FeedCenter = () => {
   const { user } = useAuth();
-  const { posts = [], loading, error, createPost, likePost } = usePosts();
+  const {
+    posts = [],
+    loading,
+    error,
+    createPost,
+    likePost,
+    deletePost,
+  } = usePosts();
   const [newPostContent, setNewPostContent] = useState("");
   const [showPicker, setShowPicker] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState(null);
@@ -78,6 +86,10 @@ const FeedCenter = () => {
 
   const handleLikeClick = async (postId) => {
     await likePost(user.id, postId);
+  };
+
+  const handleDeletePost = async (postId) => {
+    await deletePost(postId);
   };
 
   return (
@@ -163,6 +175,15 @@ const FeedCenter = () => {
                 <FaRegComment />
                 <p>Comment</p>
               </button>
+              {post.authorId === user.id && (
+                <button
+                  className="post-option"
+                  onClick={() => handleDeletePost(post.id)}
+                >
+                  <FaTrashAlt />
+                  <p>Delete</p>
+                </button>
+              )}
             </div>
             <div className="comments-section">
               {selectedPostId === post.id && (

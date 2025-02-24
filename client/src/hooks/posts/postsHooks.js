@@ -56,7 +56,19 @@ const usePosts = () => {
     }
   };
 
-  return { posts, loading, error, createPost, likePost };
+  const deletePost = async (postId) => {
+    try {
+      setLoading(true);
+      await postsService.deletePost(postId);
+      setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { posts, loading, error, createPost, likePost, deletePost };
 };
 
 const useComments = (postId) => {
