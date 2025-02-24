@@ -152,7 +152,10 @@ const Profile = () => {
             <p>Photos</p>
           </div>
           <div className="body-friends">
-            <p>Friends</p>
+            <p className="body-friends-title">Friends</p>
+            <p className="profile-display-number-friends">
+              {isLoading ? "Loading..." : count} friends
+            </p>
             {isFriendsLoading ? (
               <p>Loading friends...</p>
             ) : error ? (
@@ -160,25 +163,30 @@ const Profile = () => {
             ) : friends.length === 0 ? (
               <p>You have no friends yet</p>
             ) : (
-              <ul className="friends-list">
+              <div className="friends-list">
                 {friends.map((friend) => {
                   const friendData =
                     friend.senderId === user.id
                       ? friend.receiver
                       : friend.sender;
-                  if (!friendData) return null; // Ensure data exists
+                  if (!friendData) return null;
                   return (
-                    <li key={friendData.id} className="friend-item">
+                    <div
+                      key={friendData.id}
+                      className="body-friend-profile-item"
+                    >
                       <img
                         src={friendData.profilePicture || FallbackImage}
                         alt={`${friendData.username}'s profile`}
-                        className="friend-profile-picture"
+                        className="body-friend-profile-picture"
                       />
-                      <p>{friendData.username}</p>
-                    </li>
+                      <p className="body-friend-profile-username">
+                        {friendData.username}
+                      </p>
+                    </div>
                   );
                 })}
-              </ul>
+              </div>
             )}
           </div>
         </div>

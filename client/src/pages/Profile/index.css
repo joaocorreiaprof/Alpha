@@ -159,6 +159,8 @@
   border: 1px solid #ccd0d5;
 }
 
+/*friends*/
+
 .body-friends {
   display: flex;
   flex-direction: column;
@@ -167,6 +169,39 @@
   border-radius: 8px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
   border: 1px solid #ccd0d5;
+  width: 100%;
+  gap: 15px;
+}
+
+.body-friends-title {
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+
+.friends-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+
+.body-friend-profile-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.body-friend-profile-picture {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.body-friend-profile-username {
+  font-size: 1rem;
+  font-weight: bold;
 }
 
 /*Body right*/
