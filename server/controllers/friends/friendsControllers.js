@@ -97,10 +97,31 @@ const getNonFriends = async (req, res) => {
   }
 };
 
+const getPendingRequests = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const pendingRequests = await prisma.friendship.findMany({
+      where: {
+        receiverId: userId,
+        status: "PENDING",
+      },
+      include: {
+        sender: { select: { id: true, username: true, profilePicture: true } }, // Ensure name is selected
+      },
+    });
+
+    res.status(200).json(pendingRequests);
+  } catch (error) {
+    res.status(400).json({ error: "Failed to fetch pending friend requests" });
+  }
+};
+
 module.exports = {
   sendFriendRequest,
   acceptFriendRequest,
   denyFriendRequest,
   getAllFriends,
   getNonFriends,
+  getPendingRequests,
 };

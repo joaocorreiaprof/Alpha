@@ -5,6 +5,7 @@ import {
   denyFriendRequest,
   getAllFriends,
   getNonFriends,
+  getPendingRequests,
 } from "../../services/friends/friendsService";
 
 // Hook to send a friend request
@@ -127,4 +128,32 @@ export const useGetNonFriends = (userId) => {
   }, [userId]);
 
   return { nonFriends, isLoading, error };
+};
+
+// Hook to fetch all pending friend requests for a user
+export const useGetPendingRequests = (userId) => {
+  const [pendingRequests, setPendingRequests] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchPendingRequests = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const response = await getPendingRequests(userId);
+        setPendingRequests(response);
+        setIsLoading(false);
+      } catch (error) {
+        setError(error);
+        setIsLoading(false);
+      }
+    };
+
+    if (userId) {
+      fetchPendingRequests();
+    }
+  }, [userId]);
+
+  return { pendingRequests, isLoading, error };
 };

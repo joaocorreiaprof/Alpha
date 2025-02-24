@@ -79,3 +79,14 @@ export const getNonFriends = async (userId) => {
     throw error;
   }
 };
+
+// Get all pending friend requests for a user
+export const getPendingRequests = async (userId) => {
+  try {
+    const response = await fetch(`/api/friends/pending-requests/${userId}`);
+    return handleResponse(response);
+  } catch (error) {
+    console.error("Error fetching pending requests:", error);
+    throw error;
+  }
+};

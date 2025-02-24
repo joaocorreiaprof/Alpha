@@ -111,6 +111,10 @@ const Profile = () => {
               src={user.profilePicture}
               alt="User profile picture"
               className="profile-user-profile-picture"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = FallbackImage;
+              }}
             />
             <div className="profile-user-name-friends">
               <p className="profile-user-username">{user.username}</p>

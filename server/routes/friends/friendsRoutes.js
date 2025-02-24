@@ -18,4 +18,7 @@ router.get("/friends/:userId", friendsController.getAllFriends);
 // Get all users who are not friends with the current user
 router.get("/non-friends/:userId", friendsController.getNonFriends);
 
+// Get all pending friend requests for a user
+router.get("/pending-requests/:userId", friendsController.getPendingRequests);
+
 module.exports = router;

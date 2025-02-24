@@ -42,8 +42,8 @@ const useLogin = () => {
       try {
         const response = await authService.login(formData);
         console.log("Login successful:", response);
-        login(response.user); // Store the user information in the context
-        navigate("/"); // Redirect to home page after successful login
+        login(response.user);
+        navigate("/feed");
       } catch (error) {
         console.error("Login Error:", error);
       }

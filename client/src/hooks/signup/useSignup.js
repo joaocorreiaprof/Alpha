@@ -17,7 +17,7 @@ const useSignup = () => {
         const response = await authService.signUp(formData);
         console.log("User created successfully:", response);
         login(formData);
-        navigate("/");
+        navigate("/login");
       } catch (error) {
         console.error("Sign Up Error:", error);
       }
