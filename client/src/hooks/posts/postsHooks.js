@@ -113,4 +113,106 @@ const useComments = (postId) => {
   return { comments, loading, error, createComment };
 };
 
-export { usePosts, useComments };
+const useUserPosts = (userId) => {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchPostsByUser = async () => {
+      try {
+        const data = await postsService.getPostsByUser(userId);
+        setPosts(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (userId) {
+      fetchPostsByUser();
+    }
+  }, [userId]);
+
+  const createPost = async (authorId, content) => {
+    try {
+      setLoading(true);
+      const newPost = await postsService.createPost(authorId, content);
+      setPosts((prevPosts) => [newPost, ...prevPosts]); // Adiciona o novo post ao início da lista
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const createComment = async (postId, userId, content) => {
+    try {
+      setLoading(true);
+      const newComment = await postsService.createComment(
+        userId,
+        content,
+        postId
+      );
+      setPosts((prevPosts) =>
+        prevPosts.map((post) =>
+          post.id === postId
+            ? { ...post, comments: [newComment, ...post.comments] }
+            : post
+        )
+      );
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const likePost = async (postId, userId) => {
+    try {
+      setLoading(true);
+      await postsService.likePost(userId, postId);
+      setPosts((prevPosts) =>
+        prevPosts.map((post) =>
+          post.id === postId
+            ? {
+                ...post,
+                likes: post.likes?.some((like) => like.userId === userId)
+                  ? post.likes.filter((like) => like.userId !== userId)
+                  : [...(post.likes || []), { userId }],
+              }
+            : post
+        )
+      );
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const deletePost = async (postId) => {
+    try {
+      setLoading(true);
+      await postsService.deletePost(postId);
+      setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    posts,
+    loading,
+    error,
+    createPost,
+    createComment,
+    likePost,
+    deletePost,
+  };
+};
+
+export { usePosts, useComments, useUserPosts };

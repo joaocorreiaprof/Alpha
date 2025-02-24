@@ -105,6 +105,20 @@ const likePost = async (userId, postId) => {
   }
 };
 
+const getPostsByUser = async (userId) => {
+  try {
+    const response = await fetch(`/api/posts/user-posts/${userId}`);
+    if (!response.ok) {
+      throw new Error("Network response failed");
+    }
+    const posts = await response.json();
+    return posts;
+  } catch (error) {
+    console.error("Error fetching posts by user", error);
+    throw error;
+  }
+};
+
 export default {
   getAllPosts,
   createPost,
@@ -112,4 +126,5 @@ export default {
   displayAllComments,
   likePost,
   deletePost,
+  getPostsByUser,
 };
