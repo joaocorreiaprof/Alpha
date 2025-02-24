@@ -157,3 +157,31 @@ export const useGetPendingRequests = (userId) => {
 
   return { pendingRequests, isLoading, error };
 };
+
+// Hook to get the count of friends
+export const useFriendsCount = (userId) => {
+  const [count, setCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchFriends = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const response = await getAllFriends(userId);
+        setCount(response.length); // Get the number of friends
+        setIsLoading(false);
+      } catch (error) {
+        setError(error);
+        setIsLoading(false);
+      }
+    };
+
+    if (userId) {
+      fetchFriends();
+    }
+  }, [userId]);
+
+  return { count, isLoading, error };
+};

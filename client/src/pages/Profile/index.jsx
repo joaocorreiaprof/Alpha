@@ -11,6 +11,10 @@ import {
 } from "date-fns";
 // Hooks
 import { useUserPosts, useComments } from "../../hooks/posts/postsHooks";
+import {
+  useFriendsCount,
+  useGetAllFriends,
+} from "../../hooks/friends/friendsHooks";
 
 // Styles
 import "./index.css";
@@ -41,6 +45,8 @@ const formatPostDate = (timestamp) => {
 
 const Profile = () => {
   const { user } = useAuth();
+  const { count, isLoading } = useFriendsCount(user?.id);
+  const { friends, isLoading: isFriendsLoading } = useGetAllFriends(user?.id);
   const {
     posts = [],
     loading,
@@ -118,8 +124,10 @@ const Profile = () => {
             />
             <div className="profile-user-name-friends">
               <p className="profile-user-username">{user.username}</p>
-              <p>Friends</p>
-              <p>display friends</p>
+              <p className="profile-display-number-friends">
+                {isLoading ? "Loading..." : count} friends
+              </p>
+              <p className="profile-display-picture-friends"></p>
             </div>
           </div>
           <div className="profile-user-right">
@@ -142,6 +150,36 @@ const Profile = () => {
           </div>
           <div className="body-photos">
             <p>Photos</p>
+          </div>
+          <div className="body-friends">
+            <p>Friends</p>
+            {isFriendsLoading ? (
+              <p>Loading friends...</p>
+            ) : error ? (
+              <p>Error fetching friends</p>
+            ) : friends.length === 0 ? (
+              <p>You have no friends yet</p>
+            ) : (
+              <ul className="friends-list">
+                {friends.map((friend) => {
+                  const friendData =
+                    friend.senderId === user.id
+                      ? friend.receiver
+                      : friend.sender;
+                  if (!friendData) return null; // Ensure data exists
+                  return (
+                    <li key={friendData.id} className="friend-item">
+                      <img
+                        src={friendData.profilePicture || FallbackImage}
+                        alt={`${friendData.username}'s profile`}
+                        className="friend-profile-picture"
+                      />
+                      <p>{friendData.username}</p>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
           </div>
         </div>
         <div className="profile-body-right">
