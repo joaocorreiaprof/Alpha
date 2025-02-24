@@ -48,6 +48,49 @@
   background-color: #165ec9;
 }
 
+/*Non friends*/
+
+.feed-friend-request-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 15px;
+  gap: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  border: 1px solid #ccd0d5;
+}
+
+.non-friend-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.feed-friend-request {
+  display: flex;
+}
+
+.non-friend-profile-picture {
+  height: 160px;
+  width: 160px;
+}
+
+.non-friend-details {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  gap: 5px;
+  border: 1px solid #ccd0d5;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.non-friend-username {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
 /* Posts container */
 .posts-container {
   display: flex;
@@ -59,6 +102,21 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.send-friend-request-btn {
+  background-color: #3578e5;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 5px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.send-friend-request-btn:hover {
+  background-color: #165ec9;
 }
 
 .post {

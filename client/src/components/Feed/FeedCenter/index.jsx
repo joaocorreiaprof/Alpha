@@ -11,6 +11,10 @@ import {
 } from "date-fns";
 // Hooks
 import { usePosts, useComments } from "../../../hooks/posts/postsHooks";
+import {
+  useSendFriendRequest,
+  useGetNonFriends,
+} from "../../../hooks/friends/friendsHooks";
 
 // Styles
 import "./index.css";
@@ -38,14 +42,7 @@ const formatPostDate = (timestamp) => {
 
 const FeedCenter = () => {
   const { user } = useAuth();
-  const {
-    posts = [],
-    loading,
-    error,
-    createPost,
-    likePost,
-    deletePost,
-  } = usePosts();
+  const { posts = [], loading, createPost, likePost, deletePost } = usePosts();
   const [newPostContent, setNewPostContent] = useState("");
   const [showPicker, setShowPicker] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState(null);
@@ -57,6 +54,26 @@ const FeedCenter = () => {
   } = useComments(selectedPostId);
   const [newCommentContent, setNewCommentContent] = useState("");
   const [showCommentPicker, setShowCommentPicker] = useState(false);
+
+  // Fetch non-friends
+  const {
+    nonFriends,
+    isLoading: isNonFriendsLoading,
+    error: nonFriendsError,
+  } = useGetNonFriends(user?.id);
+
+  // Send friend request
+  const { sendRequest, isLoading: isSendingRequest } = useSendFriendRequest();
+
+  const handleSendFriendRequest = async (receiverId) => {
+    try {
+      await sendRequest(user.id, receiverId);
+      alert("Friend request sent!");
+    } catch (error) {
+      alert("Failed to send friend request.");
+      console.log(error);
+    }
+  };
 
   const handleEmojiClick = (emojiData) => {
     setNewPostContent((prev) => prev + emojiData.emoji);
@@ -123,7 +140,40 @@ const FeedCenter = () => {
         </div>
       </div>
       {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
+      <div className="feed-friend-request-container">
+        <h3>People You May Know</h3>
+        {isNonFriendsLoading && <p>Loading non-friends...</p>}
+        {nonFriendsError && <p>Error: {nonFriendsError}</p>}
+        <div className="feed-friend-request">
+          {nonFriends.length > 0 ? (
+            nonFriends.map((nonFriend) => (
+              <div key={nonFriend.id} className="non-friend-item">
+                <img
+                  src={nonFriend.profilePicture || FallbackImage}
+                  alt={nonFriend.username}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = FallbackImage;
+                  }}
+                  className="non-friend-profile-picture"
+                />
+                <div className="non-friend-details">
+                  <p className="non-friend-username">{nonFriend.username}</p>
+                  <button
+                    className="send-friend-request-btn"
+                    onClick={() => handleSendFriendRequest(nonFriend.id)}
+                    disabled={isSendingRequest}
+                  >
+                    {isSendingRequest ? "Sending..." : "Add friend"}
+                  </button>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>No non-friends to display.</p>
+          )}
+        </div>
+      </div>
       <div className="posts-container">
         {posts.map((post) => (
           <div key={post.id} className="post">
