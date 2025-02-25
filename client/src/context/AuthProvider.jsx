@@ -65,8 +65,18 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
+  const updateUserProfilePicture = (newProfilePicture) => {
+    setUser((prevUser) => {
+      const updatedUser = { ...prevUser, profilePicture: newProfilePicture };
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+      return updatedUser;
+    });
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, loginWithGoogle, logout }}>
+    <AuthContext.Provider
+      value={{ user, login, loginWithGoogle, logout, updateUserProfilePicture }}
+    >
       {children}
     </AuthContext.Provider>
   );

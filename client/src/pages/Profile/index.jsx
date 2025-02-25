@@ -44,7 +44,7 @@ const formatPostDate = (timestamp) => {
 };
 
 const Profile = () => {
-  const { user } = useAuth();
+  const { user, updateUserProfilePicture } = useAuth();
   const { count, isLoading } = useFriendsCount(user?.id);
   const { friends, isLoading: isFriendsLoading } = useGetAllFriends(user?.id);
   const {
@@ -66,7 +66,6 @@ const Profile = () => {
   } = useComments(selectedPostId);
   const [newCommentContent, setNewCommentContent] = useState("");
   const [showCommentPicker, setShowCommentPicker] = useState(false);
-  const [profilePicture, setProfilePicture] = useState("");
   const [updating, setUpdating] = useState(false);
   const [updateError, setUpdateError] = useState(null);
 
@@ -122,49 +121,36 @@ const Profile = () => {
           "MB"
         );
 
-        const reader = new FileReader();
-        reader.onloadend = async () => {
-          setUpdating(true);
-          setUpdateError(null);
-          try {
-            const response = await fetch(
-              `/api/users/${user.id}/profile-picture`,
-              {
-                method: "PUT",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ profilePicture: reader.result }),
-              }
-            );
-            if (!response.ok) {
-              throw new Error("Network response failed");
+        const formData = new FormData();
+        formData.append("profilePicture", compressedFile);
+
+        setUpdating(true);
+        setUpdateError(null);
+        try {
+          const response = await fetch(
+            `/api/users/${user.id}/profile-picture`,
+            {
+              method: "PUT",
+              body: formData,
             }
-            const updatedUser = await response.json();
-            alert("Profile picture updated successfully!");
-            // Update the user's profile picture in the state
-            user.profilePicture = updatedUser.profilePicture;
-          } catch (error) {
-            setUpdateError(error);
-            alert("Failed to update profile picture.");
-          } finally {
-            setUpdating(false);
+          );
+          if (!response.ok) {
+            throw new Error("Network response failed");
           }
-        };
-        reader.readAsDataURL(compressedFile);
+          const updatedUser = await response.json();
+          alert("Profile picture updated successfully!");
+          // Update the user's profile picture in the context
+          updateUserProfilePicture(updatedUser.profilePicture);
+        } catch (error) {
+          setUpdateError(error);
+          alert("Failed to update profile picture.");
+        } finally {
+          setUpdating(false);
+        }
       } catch (error) {
         console.error("Error compressing image:", error);
         alert("Failed to compress image.");
       }
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await handleProfilePictureChange(e);
-    } catch (error) {
-      alert("Failed to update profile picture.");
     }
   };
 
@@ -430,21 +416,6 @@ const Profile = () => {
                 </div>
               ))}
             </div>
-          </div>
-          <div className="update-profile-picture">
-            <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                value={profilePicture}
-                onChange={(e) => setProfilePicture(e.target.value)}
-                placeholder="Enter profile picture URL"
-                required
-              />
-              <button type="submit" disabled={updating}>
-                {updating ? "Updating..." : "Update Profile Picture"}
-              </button>
-              {updateError && <p>Error: {updateError.message}</p>}
-            </form>
           </div>
         </div>
       </div>

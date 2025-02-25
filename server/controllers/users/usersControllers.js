@@ -1,6 +1,8 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const cloudinary = require("../../config/cloudinaryConfig");
+const multer = require("multer");
+const upload = multer({ storage: multer.memoryStorage() });
 
 // Função para buscar todos os usuários
 const displayAllUsers = async (req, res) => {
@@ -35,18 +37,29 @@ const displayUserById = async (req, res) => {
   }
 };
 
-// Função para atualizar a foto de perfil do usuário
 const updateUserProfilePicture = async (req, res) => {
   const { userId } = req.params;
-  const { profilePicture } = req.body;
+  const file = req.file;
+
+  if (!file) {
+    return res.status(400).send("No file uploaded");
+  }
 
   try {
-    // Upload the new profile picture to Cloudinary
-    const result = await cloudinary.uploader.upload(profilePicture, {
-      folder: "profile_pictures",
+    const result = await new Promise((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        { folder: "profile_pictures" },
+        (error, result) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(result);
+          }
+        }
+      );
+      stream.end(file.buffer);
     });
 
-    // Update the user's profile picture URL in the database
     const updatedUser = await prisma.user.update({
       where: { id: userId },
       data: { profilePicture: result.secure_url },
