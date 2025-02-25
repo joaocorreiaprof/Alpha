@@ -24,9 +24,17 @@
   align-items: center;
   gap: 10px;
   margin-top: 5px;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 15px;
+}
+
+.users-user-container:hover {
+  background-color: #e0e0e0;
 }
 
 .users-user-profile-picture {
   border-radius: 50%;
   height: 2.5rem;
+  border-radius: 50%;
 }

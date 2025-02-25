@@ -72,6 +72,7 @@ const FeedCenter = () => {
     try {
       await sendRequest(user.id, receiverId);
       alert("Friend request sent!");
+      window.location.reload();
     } catch (error) {
       alert("Failed to send friend request.");
       console.log(error);

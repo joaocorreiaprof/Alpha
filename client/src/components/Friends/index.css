@@ -1,5 +1,7 @@
 /*Main container*/
 .friends-container {
+  display: flex;
+  flex-direction: column;
   height: 100%;
   width: 100%;
   padding: 10px 15px;
@@ -14,8 +16,7 @@
   font-size: 1.2rem;
   font-weight: bold;
   color: #65686c;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 
 .feed-right-friends {
@@ -30,7 +31,17 @@
 
 .feed-friend-item {
   display: flex;
+  flex-direction: row;
   align-items: center;
+  gap: 10px;
+  margin-top: 5px;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 15px;
+}
+
+.feed-friend-item:hover {
+  background-color: #e0e0e0;
 }
 
 .friend-profile-picture {

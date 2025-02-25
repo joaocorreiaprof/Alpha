@@ -1,8 +1,9 @@
 // Dependencies
-import { Link } from "react-router-dom"; // Importe o Link
+import { Link } from "react-router-dom";
 
 // Hooks
 import useUsers from "../../hooks/users/useUsers";
+import { useAuth } from "../../context/useAuth";
 
 // Styles
 import "./index.css";
@@ -12,6 +13,7 @@ import FallbackImage from "../../assets/images/fallbackprofile.jpg";
 
 const Users = () => {
   const { users, loading, error } = useUsers();
+  const { user: currentLoggedUser } = useAuth(); //Destructure and rename `user` to `currentLoggedUser`. User already in use
 
   if (loading) {
     return <div>Loading...</div>;
@@ -21,13 +23,18 @@ const Users = () => {
     return console.log("Error fetching users", error.message);
   }
 
+  // Filter out the current logged-in user
+  const filteredUsers = users.filter(
+    (user) => user.id !== currentLoggedUser.id
+  );
+
   return (
     <div className="users-container">
       <p className="users-title">Users</p>
       <ul>
-        {users.map((user) => (
+        {filteredUsers.map((user) => (
           <Link
-            to={`/user-profile/${user.id}`} // Navega para a página do perfil do usuário
+            to={`/user-profile/${user.id}`}
             key={user.id}
             className="users-user-container"
           >

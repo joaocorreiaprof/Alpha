@@ -1,5 +1,6 @@
 // Dependencies
 import { useAuth } from "../../context/useAuth";
+import { Link } from "react-router-dom";
 
 // Hooks
 import { useGetAllFriends } from "../../hooks/friends/friendsHooks";
@@ -35,14 +36,18 @@ const Friends = () => {
                 friend.senderId === user.id ? friend.receiver : friend.sender;
               if (!friendData) return null;
               return (
-                <div key={friendData.id} className="feed-friend-item">
+                <Link
+                  to={`/user-profile/${friendData.id}`}
+                  key={friendData.id}
+                  className="feed-friend-item"
+                >
                   <img
                     src={friendData.profilePicture || FallbackImage}
                     alt={`${friendData.username}'s profile`}
                     className="friend-profile-picture"
                   />
                   <p>{friendData.username}</p>
-                </div>
+                </Link>
               );
             })}
           </div>
