@@ -37,6 +37,23 @@ The site is fully optimized for mobile view, ensuring a seamless user experience
   - An index page for posts.
   - An index page for users, showing all users and buttons for sending follow requests to users the user is not already following or have a pending request.
 
+## Additional Features
+
+- **Games**:
+
+  - A dedicated page to display 5 games that users can select and play:
+    - Where's Waldo
+    - Battleship
+    - Tic Tac Toe
+    - Etch A Sketch
+    - Rock Paper Scissors
+
+- **Messaging**:
+  - Integrated with another project called Binary Buzz, a messaging app that allows users to:
+    - Send individual messages to each other.
+    - Participate in a global chat where all users can talk.
+    - Create and join groups for group messaging.
+
 ## Project Structure
 
 This project follows a well-structured organization to ensure maintainability and scalability:
