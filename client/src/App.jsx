@@ -7,7 +7,6 @@ import Feed from "./pages/Feed";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Friends from "./pages/Friends";
-import Groups from "./pages/Groups";
 import Games from "./pages/Games";
 import Messenger from "./pages/Messenger";
 import UserProfile from "./pages/UserProfile";
@@ -42,7 +41,6 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/user-profile/:id" element={<UserProfile />} />
             <Route path="/friends" element={<Friends />} />
-            <Route path="/groups" element={<Groups />} />
             <Route path="/games" element={<Games />} />
             <Route path="/messenger" element={<Messenger />} />
           </Route>

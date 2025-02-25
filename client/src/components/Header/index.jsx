@@ -8,7 +8,7 @@ import "./index.css";
 //Icons
 import { CiSearch } from "react-icons/ci";
 import { HiHome } from "react-icons/hi";
-import { MdGroups2 } from "react-icons/md";
+import { BsFillPeopleFill } from "react-icons/bs";
 import { FaGamepad } from "react-icons/fa6";
 import { SiMessenger } from "react-icons/si";
 import { TbLogout2 } from "react-icons/tb";
@@ -36,9 +36,9 @@ const Header = () => {
           <HiHome className="header-icon" />
           <span className="tooltip">Home</span>
         </Link>
-        <Link to="/groups" className="header-icon-container">
-          <MdGroups2 className="header-icon" />
-          <span className="tooltip">Groups</span>
+        <Link to="/friends" className="header-icon-container">
+          <BsFillPeopleFill className="header-icon" />
+          <span className="tooltip">Friends</span>
         </Link>
         <Link to="/games" className="header-icon-container">
           <FaGamepad className="header-icon" />

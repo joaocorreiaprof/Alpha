@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 //Icons
 import { BsFillPeopleFill } from "react-icons/bs";
-import { FcConferenceCall } from "react-icons/fc";
 import { FaGamepad } from "react-icons/fa6";
 import { FcSms } from "react-icons/fc";
 
@@ -41,12 +40,6 @@ const FeedLeft = () => {
           <button className="feed-body-left-page-btn">
             <BsFillPeopleFill className="feed-icon-btn" />
             <p>Friends</p>
-          </button>
-        </Link>
-        <Link to="/groups" className="feed-body-left-page">
-          <button className="feed-body-left-page-btn">
-            <FcConferenceCall className="feed-icon-btn" />
-            <p>Groups</p>
           </button>
         </Link>
         <Link to="/games" className="feed-body-left-page">

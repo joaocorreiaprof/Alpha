@@ -57,11 +57,9 @@ const deletePost = async (req, res) => {
       where: { id: postId },
     });
 
-    res
-      .status(200)
-      .json({
-        message: "Post and associated likes and comments deleted successfully.",
-      });
+    res.status(200).json({
+      message: "Post and associated likes and comments deleted successfully.",
+    });
   } catch (error) {
     console.error("Error deleting post:", error);
     res
