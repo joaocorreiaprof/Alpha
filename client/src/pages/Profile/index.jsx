@@ -9,6 +9,7 @@ import {
   differenceInDays,
   format,
 } from "date-fns";
+import imageCompression from "browser-image-compression";
 // Hooks
 import { useUserPosts, useComments } from "../../hooks/posts/postsHooks";
 import {
@@ -24,7 +25,6 @@ import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa6";
 import { FaTrashAlt } from "react-icons/fa";
 import { FaUserEdit } from "react-icons/fa";
-import { RiEditBoxFill } from "react-icons/ri";
 
 // Images
 import BackgroundImage from "../../assets/images/background.jpg";
@@ -66,6 +66,9 @@ const Profile = () => {
   } = useComments(selectedPostId);
   const [newCommentContent, setNewCommentContent] = useState("");
   const [showCommentPicker, setShowCommentPicker] = useState(false);
+  const [profilePicture, setProfilePicture] = useState("");
+  const [updating, setUpdating] = useState(false);
+  const [updateError, setUpdateError] = useState(null);
 
   const handleEmojiClick = (emojiData) => {
     setNewPostContent((prev) => prev + emojiData.emoji);
@@ -101,6 +104,70 @@ const Profile = () => {
     await deletePost(postId);
   };
 
+  const handleProfilePictureChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      try {
+        // Compress the image
+        const compressedFile = await imageCompression(file, {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 1024,
+          useWebWorker: true,
+        });
+
+        console.log("Original file size:", file.size / 1024 / 1024, "MB");
+        console.log(
+          "Compressed file size:",
+          compressedFile.size / 1024 / 1024,
+          "MB"
+        );
+
+        const reader = new FileReader();
+        reader.onloadend = async () => {
+          setUpdating(true);
+          setUpdateError(null);
+          try {
+            const response = await fetch(
+              `/api/users/${user.id}/profile-picture`,
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ profilePicture: reader.result }),
+              }
+            );
+            if (!response.ok) {
+              throw new Error("Network response failed");
+            }
+            const updatedUser = await response.json();
+            alert("Profile picture updated successfully!");
+            // Update the user's profile picture in the state
+            user.profilePicture = updatedUser.profilePicture;
+          } catch (error) {
+            setUpdateError(error);
+            alert("Failed to update profile picture.");
+          } finally {
+            setUpdating(false);
+          }
+        };
+        reader.readAsDataURL(compressedFile);
+      } catch (error) {
+        console.error("Error compressing image:", error);
+        alert("Failed to compress image.");
+      }
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await handleProfilePictureChange(e);
+    } catch (error) {
+      alert("Failed to update profile picture.");
+    }
+  };
+
   return (
     <div className="profile-main-container">
       <div className="profile-header">
@@ -130,13 +197,21 @@ const Profile = () => {
             </div>
           </div>
           <div className="profile-user-right">
-            <button className="profile-pic-btn">
+            <input
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              id="profile-picture-input"
+              onChange={handleProfilePictureChange}
+            />
+            <button
+              className="profile-pic-btn"
+              onClick={() =>
+                document.getElementById("profile-picture-input").click()
+              }
+            >
               <FaUserEdit />
               Change profile pic
-            </button>
-            <button className="cover-photo-btn">
-              <RiEditBoxFill />
-              Change cover photo
             </button>
           </div>
         </div>
@@ -355,6 +430,21 @@ const Profile = () => {
                 </div>
               ))}
             </div>
+          </div>
+          <div className="update-profile-picture">
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                value={profilePicture}
+                onChange={(e) => setProfilePicture(e.target.value)}
+                placeholder="Enter profile picture URL"
+                required
+              />
+              <button type="submit" disabled={updating}>
+                {updating ? "Updating..." : "Update Profile Picture"}
+              </button>
+              {updateError && <p>Error: {updateError.message}</p>}
+            </form>
           </div>
         </div>
       </div>

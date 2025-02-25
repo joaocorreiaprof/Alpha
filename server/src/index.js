@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -16,6 +17,9 @@ const friendsRoutes = require("../routes/friends/friendsRoutes");
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
+// Increase the payload size limit
+app.use(bodyParser.json({ limit: "10mb" }));
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
 // Use routes
 app.use("/", authRoutes);
