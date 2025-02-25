@@ -26,7 +26,7 @@ app.use("/api/posts", postsRoutes);
 app.use("/api/friends", friendsRoutes);
 
 // Serve static files from the client/dist directory
-const clientBuildPath = path.join(__dirname, "../client/dist");
+const clientBuildPath = path.join(__dirname, "../../client/dist");
 app.use(express.static(clientBuildPath));
 
 // Handle all other routes with the frontend's index.html
