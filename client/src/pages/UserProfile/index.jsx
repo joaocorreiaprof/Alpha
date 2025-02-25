@@ -1,21 +1,78 @@
 // Dependencies
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import userProfileHooks from "../../hooks/userProfile/userProfileHooks";
+import EmojiPicker from "emoji-picker-react";
+import {
+  formatDistanceToNow,
+  isToday,
+  isYesterday,
+  differenceInDays,
+  format,
+} from "date-fns";
 
 //Hooks
 import { useFriendsCount } from "../../hooks/friends/friendsHooks";
+import { useUserPosts, useComments } from "../../hooks/posts/postsHooks";
 
 //Images
 import BackgroundImage from "../../assets/images/background.jpg";
 import FallbackImage from "../../assets/images/fallbackprofile.jpg";
 
+// Icons
+import { AiOutlineLike, AiFillLike } from "react-icons/ai";
+import { FaRegComment } from "react-icons/fa6";
+
 //Styles
 import "./index.css";
+
+const formatPostDate = (timestamp) => {
+  if (!timestamp) return "Just now";
+  const date = new Date(timestamp);
+
+  if (isToday(date)) {
+    return formatDistanceToNow(date, { addSuffix: true });
+  } else if (isYesterday(date)) {
+    return `Yesterday at ${format(date, "HH:mm")}`;
+  } else {
+    return `${differenceInDays(new Date(), date)} days ago`;
+  }
+};
 
 const UserProfile = () => {
   const { id } = useParams(); // Captura o `id` da URL
   const { user, loading, error } = userProfileHooks(id); // Busca os dados do usuário
   const { count, isLoading } = useFriendsCount(user?.id);
+  const { posts = [], likePost } = useUserPosts(user?.id);
+  const [selectedPostId, setSelectedPostId] = useState(null);
+  const {
+    comments = [],
+    loading: commentsLoading,
+    error: commentsError,
+    createComment: createPostComment,
+  } = useComments(selectedPostId);
+  const [newCommentContent, setNewCommentContent] = useState("");
+  const [showCommentPicker, setShowCommentPicker] = useState(false);
+
+  const handleCommentEmojiClick = (emojiData) => {
+    setNewCommentContent((prev) => prev + emojiData.emoji);
+  };
+
+  const handleCreateComment = async () => {
+    const userId = user.id;
+    await createPostComment(userId, newCommentContent, selectedPostId);
+    setNewCommentContent("");
+  };
+
+  const handleCommentClick = (postId) => {
+    setSelectedPostId((prevSelectedPostId) =>
+      prevSelectedPostId === postId ? null : postId
+    );
+  };
+
+  const handleLikeClick = async (postId) => {
+    await likePost(postId, user.id);
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -58,9 +115,143 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-      <div className="user-profile-bio">
-        <h2>Bio</h2>
-        <p>{user.bio || "No bio available."}</p>
+      <div className="profile-body">
+        <div className="profile-body-left">
+          <div className="body-bio">
+            <p className="body-bio-title">Bio</p>
+            <p className="body-bio-description">{user.bio}</p>
+          </div>
+          <div className="body-photos">
+            <p>Photos</p>
+          </div>
+        </div>
+        <div className="profile-body-right">
+          <div className="profile-body-user-posts">
+            {loading && <p>Loading...</p>}
+            {error && <p>Error: {error}</p>}
+            <div className="posts-container">
+              {posts.map((post) => (
+                <div key={post.id} className="post">
+                  <div className="post-picture-username">
+                    <img
+                      src={post.author?.profilePicture || FallbackImage}
+                      alt="Post author picture"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = FallbackImage;
+                      }}
+                    />
+                    <div className="post-username-date">
+                      <p className="post-username">{post.author?.username}</p>
+                      <p className="post-date">
+                        {formatPostDate(post.updatedAt)}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="post-content-container">
+                    <p className="post-content">{post.content}</p>
+                  </div>
+                  <div className="comment-likes-comments">
+                    <div className="count-likes">
+                      <AiFillLike className="count-likes-icon" />
+                      <p>{post.likes?.length || 0}</p>
+                    </div>
+                    <button
+                      className="show-comments-btn"
+                      onClick={() => handleCommentClick(post.id)}
+                    >
+                      {post.comments?.length || 0} Comments{" "}
+                    </button>
+                  </div>
+                  <div className="post-options">
+                    <button
+                      className="post-option"
+                      onClick={() => handleLikeClick(post.id)}
+                    >
+                      {post.likes?.some((like) => like.userId === user.id) ? (
+                        <AiFillLike className="like-icon-blue" />
+                      ) : (
+                        <AiOutlineLike />
+                      )}
+                      <p>Like</p>
+                    </button>
+                    <button
+                      className="post-option"
+                      onClick={() => handleCommentClick(post.id)}
+                    >
+                      <FaRegComment />
+                      <p>Comment</p>
+                    </button>
+                  </div>
+                  <div className="comments-section">
+                    {selectedPostId === post.id && (
+                      <>
+                        {commentsLoading && <p>Loading comments...</p>}
+                        {commentsError && <p>Error: {commentsError}</p>}
+                        {comments.map((comment) => (
+                          <div key={comment.id} className="comment">
+                            <div className="comment-person-picture">
+                              <img
+                                src={
+                                  comment.user?.profilePicture || FallbackImage
+                                }
+                                alt="Profile picture of the user that commented"
+                              />
+                              <div className="comment-user-username-data">
+                                <p className="comment-user-username">
+                                  {comment.user?.username}
+                                </p>
+                                <p className="post-date">
+                                  {formatPostDate(comment.updatedAt)}
+                                </p>
+                              </div>
+                            </div>
+                            <p className="comment-user-content">
+                              {comment.content}
+                            </p>
+                          </div>
+                        ))}
+                        <div className="comment-input-container">
+                          <textarea
+                            placeholder="Write a comment..."
+                            value={newCommentContent}
+                            onChange={(e) =>
+                              setNewCommentContent(e.target.value)
+                            }
+                            className="comment-textarea"
+                          />
+                          <div className="extra-buttons">
+                            <div className="emoji-container">
+                              <button
+                                className="feed-open-emoji"
+                                onClick={() =>
+                                  setShowCommentPicker(!showCommentPicker)
+                                }
+                              >
+                                😀
+                              </button>
+                            </div>
+                            {showCommentPicker && (
+                              <EmojiPicker
+                                onEmojiClick={handleCommentEmojiClick}
+                              />
+                            )}
+                          </div>
+                          <button
+                            className="btn-post-comment"
+                            onClick={handleCreateComment}
+                          >
+                            Comment
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
