@@ -2,11 +2,15 @@
   "name": "alpha",
   "version": "1.0.0",
   "description": "Social media site",
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "scripts": {
-    "start": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\""
-  },
-  "devDependencies": {
-    "concurrently": "^7.6.0"
+    "start:client": "npm --prefix client run dev",
+    "start:server": "npm --prefix server run dev",
+    "start": "npm run start:server",
+    "postinstall": "npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
   "author": "",
