@@ -13,7 +13,10 @@ import {
 } from "date-fns";
 
 //Hooks
-import { useFriendsCount } from "../../hooks/friends/friendsHooks";
+import {
+  useFriendsCount,
+  useGetAllFriends,
+} from "../../hooks/friends/friendsHooks";
 import { useUserPosts, useComments } from "../../hooks/posts/postsHooks";
 
 //Images
@@ -45,6 +48,7 @@ const UserProfile = () => {
   const { user: loggedInUser } = useAuth();
   const { user, loading, error } = userProfileHooks(id);
   const { count, isLoading } = useFriendsCount(user?.id);
+  const { friends, isLoading: isFriendsLoading } = useGetAllFriends(user?.id);
   const { posts = [], likePost } = useUserPosts(user?.id);
   const [selectedPostId, setSelectedPostId] = useState(null);
   const {
@@ -125,6 +129,44 @@ const UserProfile = () => {
           </div>
           <div className="body-photos">
             <p>Photos</p>
+          </div>
+          <div className="body-friends">
+            <p className="body-friends-title">Friends</p>
+            <p className="profile-display-number-friends">
+              {isLoading ? "Loading..." : count} friends
+            </p>
+            {isFriendsLoading ? (
+              <p>Loading friends...</p>
+            ) : error ? (
+              <p>Error fetching friends</p>
+            ) : friends.length === 0 ? (
+              <p>You have no friends yet</p>
+            ) : (
+              <div className="friends-list">
+                {friends.map((friend) => {
+                  const friendData =
+                    friend.senderId === user.id
+                      ? friend.receiver
+                      : friend.sender;
+                  if (!friendData) return null;
+                  return (
+                    <div
+                      key={friendData.id}
+                      className="body-friend-profile-item"
+                    >
+                      <img
+                        src={friendData.profilePicture || FallbackImage}
+                        alt={`${friendData.username}'s profile`}
+                        className="body-friend-profile-picture"
+                      />
+                      <p className="body-friend-profile-username">
+                        {friendData.username}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
         <div className="profile-body-right">
