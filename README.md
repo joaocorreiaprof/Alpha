@@ -41,7 +41,7 @@ The site is fully optimized for mobile view, ensuring a seamless user experience
 
 - **Games**:
 
-  - A dedicated page to display 5 games that users can select and play:
+  - A dedicated page showcasing five games I designed during my learning journey, allowing users to select and play:
     - Where's Waldo
     - Battleship
     - Tic Tac Toe
@@ -49,7 +49,7 @@ The site is fully optimized for mobile view, ensuring a seamless user experience
     - Rock Paper Scissors
 
 - **Messaging**:
-  - Integrated with another project called Binary Buzz, a messaging app that allows users to:
+  - Integrated with another project of mine, Binary Buzz, a messaging app that allows users to:
     - Send individual messages to each other.
     - Participate in a global chat where all users can talk.
     - Create and join groups for group messaging.
