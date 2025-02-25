@@ -4,7 +4,6 @@ const cloudinary = require("../../config/cloudinaryConfig");
 const multer = require("multer");
 const upload = multer({ storage: multer.memoryStorage() });
 
-// Função para buscar todos os usuários
 const displayAllUsers = async (req, res) => {
   try {
     const users = await prisma.user.findMany();
@@ -15,7 +14,6 @@ const displayAllUsers = async (req, res) => {
   }
 };
 
-// Função para buscar um usuário pelo ID
 const displayUserById = async (req, res) => {
   const { userId } = req.params;
 
@@ -72,8 +70,26 @@ const updateUserProfilePicture = async (req, res) => {
   }
 };
 
+const updateUserBio = async (req, res) => {
+  const { userId } = req.params;
+  const { bio } = req.body;
+
+  try {
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: { bio },
+    });
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error("Error updating bio:", error);
+    res.status(500).send("An unexpected error occurred");
+  }
+};
+
 module.exports = {
   displayAllUsers,
   displayUserById,
   updateUserProfilePicture,
+  updateUserBio,
 };

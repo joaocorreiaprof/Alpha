@@ -188,9 +188,6 @@ const UserProfile = () => {
             <p className="body-bio-title">Bio</p>
             <p className="body-bio-description">{user.bio}</p>
           </div>
-          <div className="body-photos">
-            <p>Photos</p>
-          </div>
           <div className="body-friends">
             <p className="body-friends-title">Friends</p>
             <p className="profile-display-number-friends">

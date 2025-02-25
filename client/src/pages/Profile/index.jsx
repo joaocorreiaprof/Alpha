@@ -23,8 +23,7 @@ import "./index.css";
 // Icons
 import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa6";
-import { FaTrashAlt } from "react-icons/fa";
-import { FaUserEdit } from "react-icons/fa";
+import { FaTrashAlt, FaUserEdit, FaEdit } from "react-icons/fa";
 
 // Images
 import BackgroundImage from "../../assets/images/background.jpg";
@@ -44,7 +43,7 @@ const formatPostDate = (timestamp) => {
 };
 
 const Profile = () => {
-  const { user, updateUserProfilePicture } = useAuth();
+  const { user, updateUserProfilePicture, updateUserBio } = useAuth();
   const { count, isLoading } = useFriendsCount(user?.id);
   const { friends, isLoading: isFriendsLoading } = useGetAllFriends(user?.id);
   const {
@@ -68,6 +67,8 @@ const Profile = () => {
   const [showCommentPicker, setShowCommentPicker] = useState(false);
   const [updating, setUpdating] = useState(false);
   const [updateError, setUpdateError] = useState(null);
+  const [editingBio, setEditingBio] = useState(false);
+  const [newBio, setNewBio] = useState(user.bio);
 
   const handleEmojiClick = (emojiData) => {
     setNewPostContent((prev) => prev + emojiData.emoji);
@@ -154,6 +155,38 @@ const Profile = () => {
     }
   };
 
+  const handleBioEdit = () => {
+    setEditingBio(true);
+  };
+
+  const handleBioSave = async () => {
+    setUpdating(true);
+    setUpdateError(null);
+    try {
+      const response = await fetch(`/api/users/${user.id}/bio`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ bio: newBio }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update bio");
+      }
+
+      const updatedUser = await response.json();
+      updateUserBio(updatedUser.bio); // Update the bio in the context
+      setEditingBio(false);
+      alert("Bio updated successfully!");
+    } catch (error) {
+      setUpdateError(error);
+      alert("Failed to update bio.");
+    } finally {
+      setUpdating(false);
+    }
+  };
+
   return (
     <div className="profile-main-container">
       <div className="profile-header">
@@ -206,10 +239,26 @@ const Profile = () => {
         <div className="profile-body-left">
           <div className="body-bio">
             <p className="body-bio-title">Bio</p>
-            <p className="body-bio-description">{user.bio}</p>
-          </div>
-          <div className="body-photos">
-            <p>Photos</p>
+            {editingBio ? (
+              <>
+                <textarea
+                  value={newBio}
+                  onChange={(e) => setNewBio(e.target.value)}
+                  className="bio-textarea"
+                />
+                <button className="bio-save-btn" onClick={handleBioSave}>
+                  Save
+                </button>
+              </>
+            ) : (
+              <>
+                <p className="body-bio-description">{user.bio}</p>
+                <button className="bio-edit-btn" onClick={handleBioEdit}>
+                  <FaEdit />
+                  Edit
+                </button>
+              </>
+            )}
           </div>
           <div className="body-friends">
             <p className="body-friends-title">Friends</p>

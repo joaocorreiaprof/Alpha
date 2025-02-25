@@ -8,19 +8,17 @@ const {
   displayAllUsers,
   displayUserById,
   updateUserProfilePicture,
+  updateUserBio,
 } = require("../../controllers/users/usersControllers");
 
-// Rota para buscar todos os usuários
 router.get("/all-users", displayAllUsers);
-
-// Rota para buscar um usuário pelo ID
 router.get("/:userId", displayUserById);
-
-// Rota para atualizar a foto de perfil do usuário
 router.put(
   "/:userId/profile-picture",
   upload.single("profilePicture"),
   updateUserProfilePicture
 );
+
+router.put("/:userId/bio", updateUserBio);
 
 module.exports = router;

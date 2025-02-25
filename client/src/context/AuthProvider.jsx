@@ -73,9 +73,24 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
+  const updateUserBio = (newBio) => {
+    setUser((prevUser) => {
+      const updatedUser = { ...prevUser, bio: newBio };
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+      return updatedUser;
+    });
+  };
+
   return (
     <AuthContext.Provider
-      value={{ user, login, loginWithGoogle, logout, updateUserProfilePicture }}
+      value={{
+        user,
+        login,
+        loginWithGoogle,
+        logout,
+        updateUserProfilePicture,
+        updateUserBio,
+      }}
     >
       {children}
     </AuthContext.Provider>
