@@ -2,13 +2,18 @@
 
 .friends-page-container {
   display: flex;
-  flex-direction: column;
   padding: 10px 15px;
   width: 100%;
-  height: 100%;
+  height: 95vh;
   gap: 15px;
+  overflow-y: auto;
 }
-
+.friends-page-container-left {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 /*Friends body*/
 
 .friends-page-container-title {
@@ -24,6 +29,7 @@
   border-radius: 8px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
   border: 1px solid #ccd0d5;
+  overflow-y: auto;
 }
 
 .all-pending-container > * {
@@ -82,4 +88,100 @@
 
 .receive-friend-request-denied-btn:hover {
   background-color: rgb(151, 3, 3);
+}
+
+/* People You May Know */
+
+.friends-people-you-may-know-container {
+  margin-top: 20px;
+}
+
+.friends-people-you-may-know {
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+}
+
+.friends-non-friend-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccd0d5;
+  border-radius: 8px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  margin: 0 5px;
+}
+
+.friends-non-friend-profile-picture {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+
+.friends-non-friend-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.friends-non-friend-username {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.friends-send-friend-request-btn {
+  background-color: #3578e5;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 5px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.friends-send-friend-request-btn:hover {
+  background-color: rgb(65, 190, 65);
+}
+
+.friends-carousel-button {
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.friends-carousel-button.left {
+  margin-right: 10px;
+}
+
+.friends-carousel-button.right {
+  margin-left: 10px;
+}
+
+/*Friend-page-right*/
+.friends-page-container-right {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.friends-page-container-right img {
+  max-width: 100%;
+  max-height: 80%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.friends-phrase {
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-align: center;
 }
