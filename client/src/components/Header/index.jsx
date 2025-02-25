@@ -8,11 +8,9 @@ import "./index.css";
 //Icons
 import { CiSearch } from "react-icons/ci";
 import { HiHome } from "react-icons/hi";
-import { MdOutlineOndemandVideo } from "react-icons/md";
 import { MdGroups2 } from "react-icons/md";
 import { FaGamepad } from "react-icons/fa6";
 import { SiMessenger } from "react-icons/si";
-import { IoMdNotifications } from "react-icons/io";
 import { TbLogout2 } from "react-icons/tb";
 
 //Images
@@ -38,10 +36,6 @@ const Header = () => {
           <HiHome className="header-icon" />
           <span className="tooltip">Home</span>
         </Link>
-        <Link to="/videos" className="header-icon-container">
-          <MdOutlineOndemandVideo className="header-icon" />
-          <span className="tooltip">Videos</span>
-        </Link>
         <Link to="/groups" className="header-icon-container">
           <MdGroups2 className="header-icon" />
           <span className="tooltip">Groups</span>
@@ -56,10 +50,6 @@ const Header = () => {
           <SiMessenger className="header-icon" />
           <span className="tooltip">Messenger</span>
         </Link>
-        <div className="header-icon-container">
-          <IoMdNotifications className="header-icon" />
-          <span className="tooltip">Notifications</span>
-        </div>
         <div className="header-icon-container">
           <button onClick={logout} className="header-logout-btn">
             <TbLogout2 className="header-icon" />

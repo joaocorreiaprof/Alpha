@@ -1,10 +1,13 @@
-//Hooks
+// Dependencies
+import { Link } from "react-router-dom"; // Importe o Link
+
+// Hooks
 import useUsers from "../../hooks/users/useUsers";
 
-//Styles
+// Styles
 import "./index.css";
 
-//Images
+// Images
 import FallbackImage from "../../assets/images/fallbackprofile.jpg";
 
 const Users = () => {
@@ -17,12 +20,17 @@ const Users = () => {
   if (error) {
     return console.log("Error fetching users", error.message);
   }
+
   return (
     <div className="users-container">
       <p className="users-title">Users</p>
       <ul>
         {users.map((user) => (
-          <div className="users-user-container" key={user.id}>
+          <Link
+            to={`/user-profile/${user.id}`} // Navega para a página do perfil do usuário
+            key={user.id}
+            className="users-user-container"
+          >
             <img
               src={user.profilePicture}
               alt="User profile picture"
@@ -33,7 +41,7 @@ const Users = () => {
               }}
             />
             {user.username}
-          </div>
+          </Link>
         ))}
       </ul>
     </div>

@@ -8,9 +8,9 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Friends from "./pages/Friends";
 import Groups from "./pages/Groups";
-import Videos from "./pages/Videos";
 import Games from "./pages/Games";
 import Messenger from "./pages/Messenger";
+import UserProfile from "./pages/UserProfile";
 
 // Components
 import Signup from "./components/Signup";
@@ -40,9 +40,9 @@ function App() {
           >
             <Route path="/feed" element={<Feed />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/user-profile/:id" element={<UserProfile />} />
             <Route path="/friends" element={<Friends />} />
             <Route path="/groups" element={<Groups />} />
-            <Route path="/videos" element={<Videos />} />
             <Route path="/games" element={<Games />} />
             <Route path="/messenger" element={<Messenger />} />
           </Route>

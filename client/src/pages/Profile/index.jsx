@@ -127,7 +127,6 @@ const Profile = () => {
               <p className="profile-display-number-friends">
                 {isLoading ? "Loading..." : count} friends
               </p>
-              <p className="profile-display-picture-friends"></p>
             </div>
           </div>
           <div className="profile-user-right">
