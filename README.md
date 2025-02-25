@@ -4,6 +4,10 @@ Alpha is a social network website inspired by Facebook. It allows users to conne
 
 ## Screenshots
 
+| Log In                                        | Feed                                       | Profile                                                       |
+| --------------------------------------------- | ------------------------------------------ | ------------------------------------------------------------- |
+| ![Log In Screenshot](public/images/login.jpg) | ![Feed Screenshot](public/images/feed.png) | ![Profile Screenshot](public/images/logedUserProfilePage.png) |
+
 ## Live
 
 Check out the live application on Railway: [Alpha](https://alpha-production.up.railway.app/)
