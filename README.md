@@ -6,9 +6,9 @@ Alpha is a social network website inspired by Facebook. It allows users to conne
 
 ## Screenshots
 
-| Log In                                          | Feed                                                | Profile                                                                |
-| ----------------------------------------------- | --------------------------------------------------- | ---------------------------------------------------------------------- |
-| ![Log In Screenshot](./Client/public/login.jpg) | ![Feed Screenshot](../Alpha-Client/public/feed.png) | ![Profile Screenshot](../Alpha-Client/public/logedUserProfilePage.png) |
+| Log In                                          | Feed                                         | Profile                                                         |
+| ----------------------------------------------- | -------------------------------------------- | --------------------------------------------------------------- |
+| ![Log In Screenshot](./client/public/login.jpg) | ![Feed Screenshot](./client/public/feed.png) | ![Profile Screenshot](./client/public/logedUserProfilePage.png) |
 
 ## Live
 
