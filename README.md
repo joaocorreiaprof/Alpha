@@ -2,6 +2,8 @@
 
 Alpha is a social network website inspired by Facebook. It allows users to connect, share, and engage with each other through posts, comments, and likes. The project is built with a focus on user authentication, profile management, and social interactions.
 
+## Screenshots
+
 ## Live
 
 Check out the live application on Railway: [Alpha](https://alpha-production.up.railway.app/)
@@ -148,7 +150,7 @@ The application is deployed on Railway, making it accessible from anywhere witho
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](https://opensource.org/license/mit).
 
 ## Credits
 
