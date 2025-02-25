@@ -103,7 +103,8 @@
 
 .user-picture {
   border-radius: 50%;
-  height: 1.7rem;
+  height: 27px;
+  width: 27px;
   cursor: pointer;
 }
 

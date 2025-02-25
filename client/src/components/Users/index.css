@@ -34,7 +34,7 @@
 }
 
 .users-user-profile-picture {
-  border-radius: 50%;
-  height: 2.5rem;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
 }

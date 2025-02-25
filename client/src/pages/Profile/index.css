@@ -45,7 +45,8 @@
 }
 
 .profile-user-profile-picture {
-  height: 90%;
+  height: 160px;
+  width: 160px;
   border-radius: 50%;
 }
 
@@ -192,11 +193,10 @@
 }
 
 .body-friend-profile-picture {
-  width: 100%;
-  height: auto;
-  max-width: 100%;
+  width: 150px;
   object-fit: cover;
   border-radius: 10px;
+  height: 170px;
 }
 
 .body-friend-profile-username {

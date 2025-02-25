@@ -45,6 +45,7 @@
 }
 
 .friend-profile-picture {
-  height: 2.5rem;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
 }

@@ -39,12 +39,14 @@ const Friends = () => {
     setActionLoading(friendshipId);
     await acceptRequest(friendshipId);
     setActionLoading(null);
+    window.location.reload();
   };
 
   const handleDeny = async (friendshipId) => {
     setActionLoading(friendshipId);
     await denyRequest(friendshipId);
     setActionLoading(null);
+    window.location.reload();
   };
 
   const handleSendFriendRequest = async (receiverId) => {

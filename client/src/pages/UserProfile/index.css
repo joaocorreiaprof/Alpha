@@ -45,7 +45,8 @@
 }
 
 .users-profile-user-profile-picture {
-  height: 90%;
+  height: 160px;
+  width: 160px;
   border-radius: 50%;
 }
 
