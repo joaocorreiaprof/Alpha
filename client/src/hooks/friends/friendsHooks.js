@@ -6,6 +6,7 @@ import {
   getAllFriends,
   getNonFriends,
   getPendingRequests,
+  removeFriendship,
 } from "../../services/friends/friendsService";
 
 // Hook to send a friend request
@@ -184,4 +185,26 @@ export const useFriendsCount = (userId) => {
   }, [userId]);
 
   return { count, isLoading, error };
+};
+
+// Hook to remove a friendship
+export const useRemoveFriendship = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const remove = async (userId1, userId2) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await removeFriendship(userId1, userId2);
+      setIsLoading(false);
+      return response;
+    } catch (error) {
+      setError(error);
+      setIsLoading(false);
+      throw error;
+    }
+  };
+
+  return { remove, isLoading, error };
 };

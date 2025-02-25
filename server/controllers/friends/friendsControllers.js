@@ -103,17 +103,46 @@ const getPendingRequests = async (req, res) => {
   try {
     const pendingRequests = await prisma.friendship.findMany({
       where: {
-        receiverId: userId,
-        status: "PENDING",
+        OR: [
+          { receiverId: userId, status: "PENDING" },
+          { senderId: userId, status: "PENDING" },
+        ],
       },
       include: {
-        sender: { select: { id: true, username: true, profilePicture: true } }, // Ensure name is selected
+        sender: { select: { id: true, username: true, profilePicture: true } },
+        receiver: {
+          select: { id: true, username: true, profilePicture: true },
+        },
       },
     });
 
     res.status(200).json(pendingRequests);
   } catch (error) {
     res.status(400).json({ error: "Failed to fetch pending friend requests" });
+  }
+};
+
+// Remove a friendship
+const removeFriendship = async (req, res) => {
+  const { userId1, userId2 } = req.body;
+
+  try {
+    const deletedFriendship = await prisma.friendship.deleteMany({
+      where: {
+        OR: [
+          { senderId: userId1, receiverId: userId2, status: "ACCEPTED" },
+          { senderId: userId2, receiverId: userId1, status: "ACCEPTED" },
+        ],
+      },
+    });
+
+    if (deletedFriendship.count === 0) {
+      return res.status(404).json({ error: "Friendship not found" });
+    }
+
+    res.status(200).json({ message: "Friendship removed successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to remove friendship" });
   }
 };
 
@@ -124,4 +153,5 @@ module.exports = {
   getAllFriends,
   getNonFriends,
   getPendingRequests,
+  removeFriendship,
 };

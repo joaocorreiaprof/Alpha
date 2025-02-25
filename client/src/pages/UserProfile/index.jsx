@@ -12,14 +12,17 @@ import {
   format,
 } from "date-fns";
 
-//Hooks
+// Hooks
 import {
   useFriendsCount,
   useGetAllFriends,
+  useSendFriendRequest,
+  useRemoveFriendship,
+  useGetPendingRequests, // Import the hook
 } from "../../hooks/friends/friendsHooks";
 import { useUserPosts, useComments } from "../../hooks/posts/postsHooks";
 
-//Images
+// Images
 import BackgroundImage from "../../assets/images/background.jpg";
 import FallbackImage from "../../assets/images/fallbackprofile.jpg";
 
@@ -27,7 +30,7 @@ import FallbackImage from "../../assets/images/fallbackprofile.jpg";
 import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa6";
 
-//Styles
+// Styles
 import "./index.css";
 
 const formatPostDate = (timestamp) => {
@@ -60,6 +63,20 @@ const UserProfile = () => {
   const [newCommentContent, setNewCommentContent] = useState("");
   const [showCommentPicker, setShowCommentPicker] = useState(false);
 
+  const areFriends = friends.some(
+    (friend) =>
+      friend.senderId === loggedInUser.id ||
+      friend.receiverId === loggedInUser.id
+  );
+
+  const { sendRequest, isLoading: isSendingRequest } = useSendFriendRequest();
+  const { pendingRequests } = useGetPendingRequests(loggedInUser.id);
+
+  const isRequestPending = pendingRequests.some(
+    (request) =>
+      request.receiverId === user?.id || request.senderId === user?.id
+  );
+
   const handleCommentEmojiClick = (emojiData) => {
     setNewCommentContent((prev) => prev + emojiData.emoji);
   };
@@ -78,6 +95,30 @@ const UserProfile = () => {
 
   const handleLikeClick = async (postId) => {
     await likePost(postId, loggedInUser.id);
+  };
+
+  const handleSendFriendRequest = async () => {
+    try {
+      await sendRequest(loggedInUser.id, user.id);
+      alert("Friend request sent!");
+      window.location.reload();
+    } catch (error) {
+      console.error("Error sending friend request:", error);
+      alert("Failed to send friend request.");
+    }
+  };
+
+  const { remove, isLoading: isRemovingFriend } = useRemoveFriendship();
+
+  const handleRemoveFriendship = async () => {
+    try {
+      await remove(loggedInUser.id, user.id);
+      alert("Friendship removed!");
+      window.location.reload();
+    } catch (error) {
+      console.error("Error removing friendship:", error);
+      alert("Failed to remove friendship.");
+    }
   };
 
   if (loading) {
@@ -117,7 +158,27 @@ const UserProfile = () => {
             </div>
           </div>
           <div className="users-profile-user-right">
-            <button>TO add user as friend</button>
+            {areFriends ? (
+              <button
+                onClick={handleRemoveFriendship}
+                disabled={isRemovingFriend}
+                className="btn-remove-friend"
+              >
+                {isRemovingFriend ? "Removing..." : "Remove Friendship"}
+              </button>
+            ) : isRequestPending ? (
+              <button className="btn-pending-friend" disabled>
+                Pending to accept
+              </button>
+            ) : (
+              <button
+                onClick={handleSendFriendRequest}
+                disabled={isSendingRequest}
+                className="btn-add-friend"
+              >
+                {isSendingRequest ? "Sending..." : "Send friend request"}
+              </button>
+            )}
           </div>
         </div>
       </div>

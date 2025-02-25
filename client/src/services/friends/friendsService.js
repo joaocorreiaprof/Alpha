@@ -90,3 +90,20 @@ export const getPendingRequests = async (userId) => {
     throw error;
   }
 };
+
+// Remove a friendship
+export const removeFriendship = async (userId1, userId2) => {
+  try {
+    const response = await fetch(`/api/friends/remove-friendship`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId1, userId2 }),
+    });
+    return handleResponse(response);
+  } catch (error) {
+    console.error("Error removing friendship:", error);
+    throw error;
+  }
+};

@@ -70,3 +70,62 @@
   width: 50%;
   gap: 30px;
 }
+
+/*Rest of the styles goes with the Profile css becasue classnames are the same*/
+
+/*Send, pending and remove buttons*/
+
+.btn-remove-friend {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-remove-friend:hover {
+  background-color: #cc0000;
+}
+
+.btn-remove-friend:disabled {
+  background-color: #ff9999;
+  cursor: not-allowed;
+}
+
+.btn-pending-friend {
+  background-color: #cccccc;
+  color: #333333;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: not-allowed;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.btn-pending-friend:hover {
+  opacity: 1;
+}
+
+.btn-add-friend {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-add-friend:hover {
+  background-color: #45a049;
+}
+
+.btn-add-friend:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}

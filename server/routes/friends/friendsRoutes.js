@@ -21,4 +21,7 @@ router.get("/non-friends/:userId", friendsController.getNonFriends);
 // Get all pending friend requests for a user
 router.get("/pending-requests/:userId", friendsController.getPendingRequests);
 
+// Remove a friendship
+router.delete("/remove-friendship", friendsController.removeFriendship);
+
 module.exports = router;
