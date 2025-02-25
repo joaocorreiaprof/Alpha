@@ -62,13 +62,43 @@
   border: 1px solid #ccd0d5;
 }
 
-.non-friend-item {
-  display: flex;
-  flex-direction: column;
-}
-
+/* Carousel Container */
 .feed-friend-request {
   display: flex;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.non-friend-item {
+  flex: 0 0 25%;
+  box-sizing: border-box;
+  padding: 0 10px;
+}
+
+/* Carousel Buttons */
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.carousel-button.left {
+  left: 0;
+}
+
+.carousel-button.right {
+  right: 0;
+}
+
+.carousel-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .non-friend-profile-picture {
@@ -79,11 +109,9 @@
 .non-friend-details {
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 5px;
   gap: 5px;
-  border: 1px solid #ccd0d5;
-  border-radius: 0 0 8px 8px;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
 }
 
 .non-friend-username {
@@ -113,6 +141,7 @@
   font-size: 0.9rem;
   font-weight: bold;
   cursor: pointer;
+  width: 100%;
 }
 
 .send-friend-request-btn:hover {

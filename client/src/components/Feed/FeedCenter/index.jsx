@@ -65,6 +65,9 @@ const FeedCenter = () => {
   // Send friend request
   const { sendRequest, isLoading: isSendingRequest } = useSendFriendRequest();
 
+  // Carousel state
+  const [scrollPosition, setScrollPosition] = useState(0);
+
   const handleSendFriendRequest = async (receiverId) => {
     try {
       await sendRequest(user.id, receiverId);
@@ -109,6 +112,17 @@ const FeedCenter = () => {
     await deletePost(postId);
   };
 
+  // Carousel scroll handlers
+  const scrollLeft = () => {
+    setScrollPosition((prev) => Math.max(prev - 1, 0));
+  };
+
+  const scrollRight = () => {
+    setScrollPosition((prev) =>
+      Math.min(prev + 1, Math.ceil(nonFriends.length / 4) - 1)
+    );
+  };
+
   return (
     <div className="feed-body-center">
       <div className="feed-input-container">
@@ -146,29 +160,45 @@ const FeedCenter = () => {
         {nonFriendsError && <p>Error: {nonFriendsError}</p>}
         <div className="feed-friend-request">
           {nonFriends.length > 0 ? (
-            nonFriends.map((nonFriend) => (
-              <div key={nonFriend.id} className="non-friend-item">
-                <img
-                  src={nonFriend.profilePicture || FallbackImage}
-                  alt={nonFriend.username}
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = FallbackImage;
-                  }}
-                  className="non-friend-profile-picture"
-                />
-                <div className="non-friend-details">
-                  <p className="non-friend-username">{nonFriend.username}</p>
-                  <button
-                    className="send-friend-request-btn"
-                    onClick={() => handleSendFriendRequest(nonFriend.id)}
-                    disabled={isSendingRequest}
-                  >
-                    {isSendingRequest ? "Sending..." : "Add friend"}
-                  </button>
-                </div>
-              </div>
-            ))
+            <>
+              {scrollPosition > 0 && (
+                <button className="carousel-button left" onClick={scrollLeft}>
+                  &lt;
+                </button>
+              )}
+              {nonFriends
+                .slice(scrollPosition * 4, (scrollPosition + 1) * 4)
+                .map((nonFriend) => (
+                  <div key={nonFriend.id} className="non-friend-item">
+                    <img
+                      src={nonFriend.profilePicture || FallbackImage}
+                      alt={nonFriend.username}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = FallbackImage;
+                      }}
+                      className="non-friend-profile-picture"
+                    />
+                    <div className="non-friend-details">
+                      <p className="non-friend-username">
+                        {nonFriend.username}
+                      </p>
+                      <button
+                        className="send-friend-request-btn"
+                        onClick={() => handleSendFriendRequest(nonFriend.id)}
+                        disabled={isSendingRequest}
+                      >
+                        {isSendingRequest ? "Sending..." : "Add friend"}
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              {scrollPosition < Math.ceil(nonFriends.length / 4) - 1 && (
+                <button className="carousel-button right" onClick={scrollRight}>
+                  &gt;
+                </button>
+              )}
+            </>
           ) : (
             <p>No non-friends to display.</p>
           )}
