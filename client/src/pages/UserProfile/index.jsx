@@ -1,6 +1,7 @@
 // Dependencies
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { useAuth } from "../../context/useAuth";
 import userProfileHooks from "../../hooks/userProfile/userProfileHooks";
 import EmojiPicker from "emoji-picker-react";
 import {
@@ -40,8 +41,9 @@ const formatPostDate = (timestamp) => {
 };
 
 const UserProfile = () => {
-  const { id } = useParams(); // Captura o `id` da URL
-  const { user, loading, error } = userProfileHooks(id); // Busca os dados do usuário
+  const { id } = useParams();
+  const { user: loggedInUser } = useAuth();
+  const { user, loading, error } = userProfileHooks(id);
   const { count, isLoading } = useFriendsCount(user?.id);
   const { posts = [], likePost } = useUserPosts(user?.id);
   const [selectedPostId, setSelectedPostId] = useState(null);
@@ -59,7 +61,7 @@ const UserProfile = () => {
   };
 
   const handleCreateComment = async () => {
-    const userId = user.id;
+    const userId = loggedInUser.id;
     await createPostComment(userId, newCommentContent, selectedPostId);
     setNewCommentContent("");
   };
@@ -71,7 +73,7 @@ const UserProfile = () => {
   };
 
   const handleLikeClick = async (postId) => {
-    await likePost(postId, user.id);
+    await likePost(postId, loggedInUser.id);
   };
 
   if (loading) {
@@ -168,7 +170,9 @@ const UserProfile = () => {
                       className="post-option"
                       onClick={() => handleLikeClick(post.id)}
                     >
-                      {post.likes?.some((like) => like.userId === user.id) ? (
+                      {post.likes?.some(
+                        (like) => like.userId === loggedInUser.id
+                      ) ? (
                         <AiFillLike className="like-icon-blue" />
                       ) : (
                         <AiOutlineLike />
