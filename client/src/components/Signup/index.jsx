@@ -2,7 +2,7 @@ import useSignup from "../../hooks/signup/useSignup";
 import "./index.css";
 
 const Signup = () => {
-  const { formData, errors, handleChange, handleSubmit, login } = useSignup();
+  const { formData, errors, handleChange, handleSubmit } = useSignup();
 
   return (
     <div className="signup-container">
@@ -50,10 +50,6 @@ const Signup = () => {
 
         <button type="submit" className="submit-btn">
           Signup
-        </button>
-
-        <button type="button" onClick={login} className="google-login-btn">
-          Sign with Google
         </button>
       </form>
     </div>

@@ -56,7 +56,9 @@ function Home() {
                   alt="Google image"
                   className="home-google-image"
                 />
-                <button onClick={loginWithGoogle}>Login with Google</button>
+                <button onClick={loginWithGoogle}>
+                  Login/Signup with Google
+                </button>
               </div>
               <div className="home-signup">
                 <button onClick={goToSignup}>Sign Up</button>
