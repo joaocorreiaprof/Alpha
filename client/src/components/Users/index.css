@@ -38,3 +38,17 @@
   width: 40px;
   border-radius: 50%;
 }
+
+@media (max-width: 480px) {
+  .users-container {
+    overflow-y: auto;
+  }
+
+  .users-container:hover {
+    overflow-y: none;
+  }
+
+  .users-user-container:hover {
+    background-color: none;
+  }
+}

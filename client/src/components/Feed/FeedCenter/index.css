@@ -339,3 +339,22 @@
   background: #ccc;
   border-radius: 4px;
 }
+
+/*Mobile View*/
+@media (max-width: 480px) {
+  .feed-body-center {
+    padding: 10px 2%;
+  }
+
+  .feed-open-emoji {
+    display: none;
+  }
+
+  .feed-friend-request-container {
+    display: none;
+  }
+
+  .comment-likes-comments {
+    margin-bottom: 10px;
+  }
+}

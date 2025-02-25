@@ -19,3 +19,25 @@
 .feed-right {
   width: 20%;
 }
+
+/*Mobile View*/
+
+@media (max-width: 480px) {
+  .feed-body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  .feed-left {
+    display: none;
+  }
+
+  .feed-center {
+    width: 100%;
+  }
+
+  .feed-right {
+    width: 100%;
+  }
+}

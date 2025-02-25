@@ -130,3 +130,48 @@
   background-color: #a5d6a7;
   cursor: not-allowed;
 }
+
+@media (max-width: 480px) {
+  .users-profile-container {
+    padding: 0 10px;
+  }
+
+  .users-profile-header {
+    padding: 0;
+    height: auto;
+  }
+
+  .users-profile-cover {
+    height: 150px;
+  }
+
+  .users-profile-user {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+  }
+
+  .users-profile-user-left,
+  .users-profile-user-right {
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .users-profile-user-profile-picture {
+    height: 100px;
+    width: 100px;
+  }
+
+  .users-profile-user-username {
+    font-size: 1.5rem;
+  }
+
+  .btn-add-friend,
+  .btn-remove-friend,
+  .btn-pending-friend {
+    padding: 5px 10px; /* Reduced padding */
+    margin-top: 10px; /* Added margin-top */
+    font-size: 12px; /* Adjusted font size */
+  }
+}

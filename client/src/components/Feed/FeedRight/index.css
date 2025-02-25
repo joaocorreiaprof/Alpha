@@ -83,3 +83,23 @@
 .feed-body-right-users {
   height: 37%;
 }
+
+/*Smart View*/
+
+@media (max-width: 480px) {
+  .feed-body-right {
+    padding: 10px 2%;
+  }
+
+  .feed-body-right-sponsored {
+    display: none;
+  }
+
+  .feed-body-right-friends {
+    height: auto;
+  }
+
+  .feed-body-right-users {
+    height: auto;
+  }
+}

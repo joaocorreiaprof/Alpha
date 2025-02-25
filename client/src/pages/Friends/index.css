@@ -187,3 +187,53 @@
   font-weight: bold;
   text-align: center;
 }
+
+/*Mobile View*/
+
+@media (max-width: 480px) {
+  .friends-page-container {
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .friends-page-container-left {
+    width: 100%;
+    height: 50%;
+  }
+
+  .friends-page-container-right {
+    width: 100%;
+    height: 50%;
+  }
+
+  .all-pending-container {
+    padding: 10px;
+  }
+
+  .all-pending-container > * {
+    width: calc(20% - 10px);
+    max-width: 20%;
+  }
+
+  .pending-user {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .request-user-picture {
+    height: 100px;
+    width: 100px;
+  }
+
+  .friends-page-username-request {
+    font-size: 0.9rem;
+  }
+
+  .receive-friend-request-accept-btn {
+    font-size: 0.8rem;
+  }
+
+  .receive-friend-request-denied-btn {
+    font-size: 0.8rem;
+  }
+}

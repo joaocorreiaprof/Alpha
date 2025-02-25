@@ -49,3 +49,17 @@
   width: 40px;
   border-radius: 50%;
 }
+
+@media (max-width: 480px) {
+  .friends-container {
+    overflow-y: auto;
+  }
+
+  .friends-container:hover {
+    overflow-y: none;
+  }
+
+  .feed-friend-item:hover {
+    background-color: none;
+  }
+}
