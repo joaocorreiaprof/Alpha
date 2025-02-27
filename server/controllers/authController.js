@@ -61,8 +61,9 @@ const googleCallback = async (req, res) => {
     res.cookie("auth_token", token, { httpOnly: true });
 
     // Redirect to the front end with user profile information
+    const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
     res.redirect(
-      `http://localhost:5173?user=${encodeURIComponent(
+      `${frontendUrl}?user=${encodeURIComponent(
         JSON.stringify({
           id: user.id,
           email: user.email,
@@ -105,7 +106,8 @@ const getProfile = (req, res) => {
 // Logout
 const logout = (req, res) => {
   res.clearCookie("auth_token");
-  res.redirect("http://localhost:5173");
+  const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+  res.redirect(frontendUrl);
 };
 
 const bcrypt = require("bcrypt");
