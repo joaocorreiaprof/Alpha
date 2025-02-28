@@ -176,4 +176,3 @@ This project is licensed under the [MIT License](https://opensource.org/license/
 ## Credits
 
 - Developed by João Correia.
-- Special thanks to the contributors and the resources that made this project possible. If you encounter any issues, feel free to open an issue or submit a pull request.

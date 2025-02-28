@@ -6,13 +6,13 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-//Import routes
-const authRoutes = require("../routes/authRoutes");
-const usersRoutes = require("../routes/users/usersRoutes");
-const postsRoutes = require("../routes/posts/postsRoutes");
-const friendsRoutes = require("../routes/friends/friendsRoutes");
+// Import routes
+const authRoutes = require("../src/routes/authRoutes");
+const usersRoutes = require("../src/routes/users/usersRoutes");
+const postsRoutes = require("../src/routes/posts/postsRoutes");
+const friendsRoutes = require("../src/routes/friends/friendsRoutes");
 
-//Middlewares
+// Middlewares
 app.use(express.json());
 app.use(cookieParser());
 // Increase the payload size limit
@@ -26,7 +26,7 @@ app.use("/api/posts", postsRoutes);
 app.use("/api/friends", friendsRoutes);
 
 // Serve static files from the client/dist directory
-const clientBuildPath = path.join(__dirname, "../../client/dist");
+const clientBuildPath = path.join(__dirname, "../client/dist");
 app.use(express.static(clientBuildPath));
 
 // Handle all other routes with the frontend's index.html
