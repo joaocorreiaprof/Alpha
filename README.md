@@ -66,21 +66,19 @@ This project follows a well-structured organization to ensure maintainability an
 
 ```plaintext
 Alpha-Server/
-
-├── app.js              # Main application entry point
-├── cloudinary.js       # Cloudinary configuration for file uploads
-├── passport-config.js  # Passport.js configuration for authentication
-├── controllers/        # Controllers for handling route logic
 ├── node_modules/       # Node.js dependencies (auto-generated)
-├── package.json        # Project metadata and dependencies
-├── package-lock.json   # Dependency tree lock file
 ├── prisma/             # Prisma schema and migrations
 │   ├── migrations/     # Database migrations
 │   └── schema.prisma   # Prisma schema file
-├── public/             # Static assets (CSS, JS, images)
-├── routes/             # Express route definitions
-├── uploads/            # Local directory for temporarily storing uploaded files
-├── views/              # EJS templates for server-side rendering
+├── src/                # Prisma schema and migrations
+|   ├── config          # Cloudinary configuration for file uploads
+│   ├── controllers/    # Controllers for handling route logic
+│   ├── routes/         # Express route definitions
+├── .gitignore          # ignore selected files and folder on GitHub
+├── index.js            # Main application entry point
+├── package.json        # Project metadata and dependencies
+├── package-lock.json   # Dependency tree lock file
+
 
 ```
 
@@ -89,6 +87,7 @@ Alpha-Server/
 ```plaintext
 Alpha-Client/
 
+├── public/             # Public assets
 ├── src/
 │   ├── assets/         # Static assets such as images and icons
 │   ├── components/     # React components
@@ -104,11 +103,11 @@ Alpha-Client/
 │   ├── App.jsx         # Main App component
 │   ├── index.jsx       # Main entry point
 │   └── index.css       # Global styles
-├── node_modules/       # Node.js dependencies (auto-generated)
+├── node_modules/       # Node.js dependencies
 ├── package.json        # Project metadata and dependencies
 ├── package-lock.json   # Dependency tree lock file
-├── public/             # Public assets
-└── README.md           # Project documentation
+├── vite.config.js      # Vite configs used for server-proxy
+├── eslint.config.js    # Eslint configs for preventing code errors
 
 ```
 
