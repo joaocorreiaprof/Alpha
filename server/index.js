@@ -7,10 +7,10 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Import routes
-const authRoutes = require("../src/routes/authRoutes");
-const usersRoutes = require("../src/routes/users/usersRoutes");
-const postsRoutes = require("../src/routes/posts/postsRoutes");
-const friendsRoutes = require("../src/routes/friends/friendsRoutes");
+const authRoutes = require("./src/routes/authRoutes");
+const usersRoutes = require("./src/routes/users/usersRoutes");
+const postsRoutes = require("./src/routes/posts/postsRoutes");
+const friendsRoutes = require("./src/routes/friends/friendsRoutes");
 
 // Middlewares
 app.use(express.json());
