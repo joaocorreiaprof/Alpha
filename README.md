@@ -146,20 +146,20 @@ The application is deployed on Railway, making it accessible from anywhere witho
 
 ## Technologies Used
 
-- **Backend**:
+- **Backend**
 
   - Node.js with Express for API routing and server-side logic.
   - Prisma ORM for database management.
   - Passport.js for authentication.
   - PostgreSQL for the relational database.
 
-- **Frontend**:
+- **Frontend**
 
   - React for building the front-end UI.
   - Vite as the build tool for the React app.
   - CSS for styling.
 
-- **Authentication**:
+- **Authentication**
   - Google OAuth for Google authentication.
   - JWT (JSON Web Tokens) for handling user authentication and authorization.
 
