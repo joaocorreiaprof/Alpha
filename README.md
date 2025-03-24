@@ -10,7 +10,7 @@ Alpha is a social network website inspired by Facebook. It allows users to conne
 
 ## Live
 
-Check out the live application on Railway: [Alpha](https://alpha-production-e8ae.up.railway.app/)
+Check out the live application: [Alpha](https://alpha-production-e8ae.up.railway.app/)
 
 ## Mobile View
 
